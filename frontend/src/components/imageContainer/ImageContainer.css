@@ -1,0 +1,23 @@
+.addComment {
+  display: flex;
+  flex-wrap: wrap;
+}
+.addComment > * {
+  margin: 5px;
+}
+.imageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 5px;
+  border: 1px solid black;
+}
+.imageContainer > img {
+  width: 300px;
+  height: 300px;
+  margin: 0;
+}
+.imageContainer > p{
+  margin: 0 5px;
+}

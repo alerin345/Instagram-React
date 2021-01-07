@@ -1,0 +1,13 @@
+.menu {
+  width: 100%;
+}
+.menu > ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+.menu > ul > li {
+  margin: 5px 10px;
+}

@@ -1,0 +1,14 @@
+.changeProfileSettings {
+  padding: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+.changeProfileSettings > * {
+  margin: 5px 0;
+}
+.changeProfileSettings > textarea {
+  min-width: 300px;
+  min-height: 200px;
+}

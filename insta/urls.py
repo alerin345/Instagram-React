@@ -14,24 +14,37 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 
-from main.views import index, registerPage, loginPage, logoutUser
-from users.views import index as usersIndex, profileSettings, changePassword, addImage
 from django.conf.urls.static import static
 from django.conf import settings
+from django.views.generic import TemplateView
+
 
 urlpatterns = [
+    path('api/', include('api.urls')),
+    path('', TemplateView.as_view(template_name='index.html')),
+    path('register/', TemplateView.as_view(template_name='index.html'), name='register'),
+    path('accounts/profileSettings/', TemplateView.as_view(template_name='index.html'), name='profileSettings'),
+    path('accounts/changePassword/', TemplateView.as_view(template_name='index.html'), name='changePassword'),
+    # path('<str:username>/', TemplateView.as_view(template_name='index.html'), name='username'),
     path('admin/', admin.site.urls),
-    path('', index),
-    path('register/', registerPage, name="register"),
-    path('login/', loginPage, name="login"),
-    path('logout/', logoutUser, name="logout"),
-    path('accounts/profileSettings', profileSettings, name="profile settings"),
-    path('accounts/changePassword', changePassword, name="change password"),
-    path('accounts/addImage', addImage, name="add image"),
+
+    # path('login/', TemplateView.as_view(template_name='index.html')),
+    # path('<str:username>/', TemplateView.as_view(template_name='index.html')),
+    # path('api/', include('api')),
+    # path('api/', main),
+    # path('test/', TemplateView.as_view(template_name='index.html'), name="test"),
+    # path('', index),
+    # path('register/', registerPage, name="register"),
+    # path('login/', loginPage, name="login"),
+    # path('logout/', logoutUser, name="logout"),
+    # path('accounts/profileSettings', profileSettings, name="profile settings"),
+    # path('accounts/changePassword', changePassword, name="change password"),
+    # path('accounts/addImage', addImage, name="add image"),
     # path('users/', usersIndex),
-    path("<str:nickname>", usersIndex, name="index"),
+    # path("<str:nickname>", usersIndex, name="index"),
+    # path("<str:nickname>", usersIndex, name="index"),
 ]
 
 # urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

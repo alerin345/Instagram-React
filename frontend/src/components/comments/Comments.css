@@ -1,0 +1,7 @@
+.comments {
+  list-style: none;
+  padding: 0;
+}
+.comment > * {
+  margin: 5px;
+}
