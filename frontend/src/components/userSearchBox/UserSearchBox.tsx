@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './UserSearchBox.css'
 // @ts-ignore
-import { Redirect, useHistory } from 'react-router-dom'
+import { Redirect, useHistory, Link } from 'react-router-dom'
+import { UsersListContext } from './../usersListContext/UsersListContext'
 
 function UserSearchBox(props: any) {
-  const [input, setInput]:any = useState(null)
+  const {usersList} = useContext(UsersListContext)
+  const [input, setInput]:any = useState("/")
   const history = useHistory();
   // const [loading, setLoading] = React.useState(true);
   // const [error, setError] = React.useState('');
@@ -27,7 +29,8 @@ function UserSearchBox(props: any) {
   return (
     <div className="UserSearchBox">
       <input type="text" placeholder="username" onKeyUp={(e:any) => setInput(e.target.value)}/>
-      <button className="btn btn-primary" onClick={() => history.push(input)}>find user</button>
+       {/*<Link to={input}>find user</Link>*/}
+       <button className="btn btn-primary" onClick={() => history.push(input)}>find user</button>
     </div>
   );
 }

@@ -1,8 +1,9 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import './Login.css';
 import { Link, Redirect } from "react-router-dom"
 import { UserContext } from './../components/userContext/UserContext'
 import csrftoken from './../components/csrftoken/csrftoken'
+import { FetchLogin } from './../components/fetch/Fetch'
 
 function Login() {
   const [errors, setErrors]:any[] = useState([]);
@@ -20,17 +21,7 @@ function Login() {
       'password' : password
     }
 
-    fetch("http://localhost:8000/api/login/", {
-      // credentials: 'include',
-      method: 'POST',
-      // mode: 'same-origin',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        'X-CSRFToken': csrftoken
-      },
-      body: JSON.stringify(data)
-    })
+    FetchLogin(data)
     .then(async (res) => {
       const response = await res.json()
 
@@ -39,8 +30,9 @@ function Login() {
         await setErrors(response)
       }
       else {
-        const {user} = response
-        console.log(response,user);
+        // const { user } = response
+        const user = await { ...response.user, 'token': response.token }
+        await console.log('res: ',response,"user: ",user);
         await localStorage.setItem('user',JSON.stringify(user))
         await setUser(user)
 
@@ -50,6 +42,11 @@ function Login() {
         console.log("error:",res.message);
     });
   }
+  useEffect( () => {
+    // localStorage.removeItem('user')
+    // localStorage.removeItem('usersList')
+    // setUser(null)
+  },[])
 
   return (
     user ?

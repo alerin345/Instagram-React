@@ -3,6 +3,7 @@ import './Register.css';
 import { Link , Redirect } from "react-router-dom"
 import csrftoken from './../components/csrftoken/csrftoken'
 import { UserContext } from './../components/userContext/UserContext'
+import { FetchRegister } from './../components/fetch/Fetch'
 
 function Register() {
   const [errors, setErrors]:any[] = useState([]);
@@ -24,17 +25,7 @@ function Register() {
     }
     if(password === password2)
     {
-      fetch("http://localhost:8000/api/register/", {
-        // credentials: 'include',
-        method: 'POST',
-        // mode: 'same-origin',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'X-CSRFToken': csrftoken
-        },
-        body: JSON.stringify(data)
-      })
+      FetchRegister(data)
       .then(async (res) => {
         const response = await res.json()
         await console.log(response,response.token,response.user)
@@ -69,7 +60,7 @@ function Register() {
         <input type="email" placeholder="Email address" name="email"/>
         <input type="password" placeholder="password" name="password"/>
         <input type="password" placeholder="password2" name="password2"/>
-        <button type="submit" className="btn btn-primary">login</button>
+        <button type="submit" className="btn btn-primary">register</button>
         {
           Object.keys(errors)
           .map(objName => errors[objName])

@@ -15,7 +15,7 @@ function Menu(props: any) {
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
-          'Authorization': `token ${user.token}`
+          'Authorization': `Token ${user.token}`
           // 'X-CSRFToken': csrftoken
         },
         body: ""
@@ -40,10 +40,10 @@ function Menu(props: any) {
         ) : (
           <React.Fragment>
             <li>
-              <Link to="/register/">Register</Link>
+              <Link to="/register">Register</Link>
             </li>
             <li>
-              <Link to="/login/">Login</Link>
+              <Link to="/login">Login</Link>
             </li>
           </React.Fragment>
         )}

@@ -27,7 +27,7 @@ urlpatterns = [
     path('register/', TemplateView.as_view(template_name='index.html'), name='register'),
     path('accounts/profileSettings/', TemplateView.as_view(template_name='index.html'), name='profileSettings'),
     path('accounts/changePassword/', TemplateView.as_view(template_name='index.html'), name='changePassword'),
-    # path('<str:username>/', TemplateView.as_view(template_name='index.html'), name='username'),
+    path('<str:username>/', TemplateView.as_view(template_name='index.html'), name='username'),
     path('admin/', admin.site.urls),
 
     # path('login/', TemplateView.as_view(template_name='index.html')),
