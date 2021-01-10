@@ -11,18 +11,23 @@ from django.contrib.auth.models import User
 # from .forms import ProfileForm, AddImageForm
 from .models import Profile, Image, Like, Comment, Subscription
 # from django.contrib import messages
-
-from rest_framework import generics
+#FormParser, MultiPartParser,
+from rest_framework.parsers import FormParser, MultiPartParser, JSONParser, FileUploadParser
+from rest_framework import generics, viewsets
 #, permissions
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from .serializers import *
+#, AddSubscribeSerializer
 from rest_framework.response import Response
 # from rest_framework.views import APIView
+from django.contrib.auth.forms import PasswordChangeForm
 from knox.models import AuthToken
 from rest_framework.permissions import IsAuthenticated
 # from rest_framework.authtoken.serializers import AuthTokenSerializer
 # from knox.views import LoginView as KnoxLoginView
 # from django.contrib.auth import login
 from knox.auth import TokenAuthentication
+from rest_framework import status
+import json
 
 class RegisterView(generics.GenericAPIView):
     serializer_class = RegisterSerializer
@@ -30,6 +35,12 @@ class RegisterView(generics.GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
+        print(user)
+        try:
+            profile = Profile(user=user)
+            profile.save()
+        except Profile.DoesNotExist:
+            print('not exists profile')
         return Response({
         "user": UserSerializer(user, context=self.get_serializer_context()).data,
         "token": AuthToken.objects.create(user)[1]
@@ -47,25 +58,6 @@ class LoginAPI(generics.GenericAPIView):
         "token": AuthToken.objects.create(user)[1]
         })
 
-#digest filter flat=True
-
-
-# class Test(generics.GenericAPIView):
-#     authentication_classes = (TokenAuthentication,)
-#     permission_classes = (IsAuthenticated,)
-#
-#     def post(self, request, *args, **kwargs):
-#         if 'token' in request.data and 'username' in request.data:
-#             print(request.headers.get("Authorization"))
-#             username = request.data['username']
-#             token2 = request.data['token']
-#             validate = IsValidate(username,token2)
-#             return Response({
-#                 "msg" : validate
-#             })
-#         return Response({
-#             "msg" : "Bad request"
-#         })
 class Test(generics.GenericAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -91,22 +83,42 @@ class UserProfile(generics.GenericAPIView):
         if 'username' in kwargs:
             username = str(request.user)
             username2 = kwargs['username']
+
             try:
                 user = User.objects.get(username=username)
                 user2 = User.objects.get(username=username2)
                 images = getImages(user,user2)
+                profile, created = Profile.objects.get_or_create(user=user2)
+                if created:
+                    image = profile.picture.url
+                    description = profile.description
+                else:
+                    image = profile.picture.url
+                    description = profile.description
+                subscriber = len(Subscription.objects.filter(user=user2))
+                subscribes = len(Subscription.objects.filter(userSubscribed=user2))
+                isSubscribe = Subscription.objects.filter(user=user2, userSubscribed=user).exists()
             except User.DoesNotExist:
                 return Response({
                     "error" : "Bad request user"
                 })
+            # except Profile.DoesNotExist:
+            #     return Response({
+            #         "error" : "Bad request profile"
+            #     })
 
             print(images)
             itsMyProfile = itsMe(username,username2)
             return Response({
                 "msg" : "msg",
                 "user" : username2,
-                "images": images,
-                "itsMyProfile" : itsMyProfile
+                "itsMyProfile" : itsMyProfile,
+                "image" : image,
+                "isSubscribe" : isSubscribe,
+                "subscriber" : subscriber,
+                "subscribes" : subscribes,
+                "description" : description,
+                "images": images
             })
         return Response({
             "error" : "Bad request"
@@ -118,7 +130,6 @@ class GetUsers(generics.GenericAPIView):
     def get(self, request, *args, **kwargs):
         try:
             users = list(User.objects.all().values_list('username', flat=True))
-            # users = ['abc']
         except User.DoesNotExist:
             users = []
         return Response({
@@ -191,6 +202,141 @@ class AddLike(generics.GenericAPIView):
         return Response({
             'message' : 'bad request'
         })
+
+class ChangePassword(generics.UpdateAPIView):
+    serializer_class = ChangePasswordSerializer
+    model = User
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, *args, **kwargs):
+        if 'newPassword' in request.data and 'oldPassword' in request.data:
+            oldPassword = request.data['oldPassword']
+            newPassword = request.data['newPassword']
+            serializer = self.get_serializer(data=request.data)
+            serializer.is_valid(raise_exception=True)
+            obj = request.user
+            if not obj.check_password(serializer.data.get("oldPassword")):
+                return Response({"oldPassword": ["Wrong password."]}, status=status.HTTP_400_BAD_REQUEST)
+            obj.set_password(serializer.data.get("newPassword"))
+            obj.save()
+            return Response({
+                'message' : 'success',
+                'newPassword' : newPassword
+            })
+        return Response({
+            'message' : 'bad request'
+        })
+class ChangeUserProfile(generics.UpdateAPIView):
+    queryset = Profile.objects.all()
+    serializer_class = ChangeUserProfileSerializer
+    # parser_classes = [MultiPartParser]
+    def post(self, request, *args, **kwargs):
+        picture = request.FILES['picture']
+        description = request.data['description']
+        profile, created = Profile.objects.get_or_create(user=request.user)
+        if created:
+            profile.description = description
+            profile.picture = picture
+            profile.save()
+        else:
+            profile.description = description
+            profile.picture = picture
+            profile.save()
+        return Response({
+            "message" : "user porfile has been changed"
+        }, status=200)
+
+
+class AddSubscribe(generics.UpdateAPIView):
+    # serializer_class = AddSubscribeSerializer
+    # model = Subscription
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, *args, **kwargs):
+        if 'username' in request.data:
+            username = request.data['username']
+            try:
+                user = User.objects.get(username=username)
+                userSubscribed = User.objects.get(username=request.user)
+                isSubscribe = Subscription.objects.filter(user=user, userSubscribed=userSubscribed).exists()
+                print('is:',isSubscribe)
+                if(isSubscribe):
+                    subscribe = Subscription.objects.filter(user=user, userSubscribed=userSubscribed)
+                    subscribe.delete()
+                else:
+                    subscribe = Subscription(user=user, userSubscribed=userSubscribed)
+                    subscribe.save()
+            except User.DoesNotExist:
+                return Response({
+                    'message' : 'bad request user'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            except Subscription.DoesNotExist:
+                return Response({
+                    'message' : 'bad request subscribe'
+                }, status=status.HTTP_400_BAD_REQUEST)
+            if isSubscribe:
+                return Response({
+                'message' : 'successfully unsubscribed '+str(userSubscribed)
+                })
+            else:
+                return Response({
+                'message' : 'successfully subscribed '+str(userSubscribed)
+                })
+        return Response({
+            'message' : 'bad request'
+        })
+
+class AddPhoto(generics.UpdateAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, *args, **kwargs):
+        if 'description' in request.data:
+            if 'picture' in request.FILES:
+                image = request.FILES['picture']
+                description = request.data['description']
+                print(request.user)
+                print(image)
+                print(description)
+                try:
+                    user = User.objects.get(username=request.user)
+                    img = Image(user=user,picture=image,description=description)
+                    img.save()
+                except Image.DoesNotExist:
+                    return Response({
+                        'message' : 'bad request image'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                except User.DoesNotExist:
+                    return Response({
+                        'message' : 'bad request user'
+                    }, status=status.HTTP_400_BAD_REQUEST)
+                return Response({
+                    'message' : 'successfully added image'
+                })
+        return Response({
+            'message' : 'bad request'
+        })
+
+class DeletePhoto(generics.UpdateAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def post(self, request, *args, **kwargs):
+        if 'imageId' in request.data:
+            user = request.user
+            imageId = request.data['imageId']
+            try:
+                image = Image.objects.get(id=imageId)
+                image.delete()
+            except Image.DoesNotExist:
+                return Response({
+                    'message' : 'image not exists',
+                }, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                'message' : 'image was successfully deleted',
+            })
+        return Response({
+            'message' : 'bad request'
+        })
+
 def itsMe(username, username2):
     if username == username2:
         return True
@@ -219,6 +365,6 @@ def getImages(user,user2):
             comments = []
 
         commentsCount = len(comments)
-        dic = {'id': id,'image': images[i].picture.url, 'description' : description, 'date' : date, 'isLike' : isLike, 'likesCount': likesCount, 'commentsCount' : commentsCount, "comments": list(comments) }
+        dic = {'id': id, 'image': images[i].picture.url, 'description' : description, 'date' : date, 'isLike' : isLike, 'likesCount': likesCount, 'commentsCount' : commentsCount, "comments": list(comments) }
         imagesList.append(dic)
     return imagesList

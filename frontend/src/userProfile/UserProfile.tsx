@@ -26,7 +26,7 @@ function UserProfile(props:any) {
   // const [isUser, setUsers] = useState(null)
   const { username } = props.match.params;
   useEffect( () => {
-    console.log(username)
+    // console.log(username)
     fetch(`http://localhost:8000/api/userProfile/${username}/`, {
       // credentials: 'include',
       method: 'GET',
@@ -56,21 +56,23 @@ function UserProfile(props:any) {
     (usersList.indexOf(username) !== -1) ?
     <React.Fragment>
       <Menu />
-      <UserContainer username={username} image="https://ecsmedia.pl/c/fototapeta-husky-syberyjski-8-elementow-368x248-cm-b-iext51388152.jpg"
-      description="blabla" subscriber="1" subscribes="5" />
+      <UserContainer username={username} itsMyProfile={userProfile.itsMyProfile} image={userProfile.image}
+      description={userProfile.description} subscriber={userProfile.subscriber} subscribes={userProfile.subscribes} />
 
       { /* loop*/ }
       {
           userProfile.images.map( (image:any,id:any) =>
             <ImageContainer key={id}
-            imageId={image.id}
-            image={image.image}
-            isLike={image.isLike}
-            description={image.description}
-            likesCount={image.likesCount}
-            commentsCount={image.commentsCount}
-            comments={image.comments}
-            date={image.date} />
+            {...image}
+            // imageId={image.id}
+            // image={image.image}
+            // isLike={image.isLike}
+            // description={image.description}
+            // likesCount={image.likesCount}
+            // commentsCount={image.commentsCount}
+            // comments={image.comments}
+            // date={image.date}
+            />
           )
     }
       {/* end loop */}

@@ -12,7 +12,6 @@ function Login() {
   const submit = (e:any) => {
     e.preventDefault()
     const form = e.target;
-    // console.log('submit')
     const username:string = form.querySelector('input[name="username"]').value
     const password:string = form.querySelector('input[name="password"]').value
 

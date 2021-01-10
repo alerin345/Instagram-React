@@ -33,3 +33,16 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id','username','email')
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+    oldPassword = serializers.CharField(required=True)
+    newPassword = serializers.CharField(required=True)
+
+class ChangeUserProfileSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ['picture', 'description']
+# class AddSubscribeSerializer(serializers.Serializer):
+#     model = Subscription
+#     fields = ('user','userSubscribed')

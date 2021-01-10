@@ -2,11 +2,7 @@ import React, {useState, useEffect, useContext} from 'react';
 import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 
-// const { user } = useContext(UserContext)
 
-// const local:any = localStorage.getItem('user') || "{}"
-// const user:any = JSON.parse(local)
-// const user:any = ""
 const FetchRegister = (data:any) => fetch("http://localhost:8000/api/register/", {
   // credentials: 'include',
   method: 'POST',
@@ -30,7 +26,7 @@ const FetchLogin = (data:any) => fetch("http://localhost:8000/api/login/", {
   },
   body: JSON.stringify(data)
 })
-const FetchUsers = (token:any) => fetch("http://localhost:8000/api/users/", {
+const FetchUsers = (token:string) => fetch("http://localhost:8000/api/users/", {
   // credentials: 'include',
     method: 'GET',
   // mode: 'same-origin',
@@ -43,7 +39,7 @@ const FetchUsers = (token:any) => fetch("http://localhost:8000/api/users/", {
 })
 
 
-const FetchAddLike = (token:any, imageId:any, isLike:any) => fetch('http://localhost:8000/api/addLike/', {
+const FetchAddLike = (token:string, imageId:any, isLike:any) => fetch('http://localhost:8000/api/addLike/', {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
@@ -59,7 +55,7 @@ const FetchAddLike = (token:any, imageId:any, isLike:any) => fetch('http://local
 
 })
 
-const FetchAddComment = (token:any, inputVal:any, imageId:any) => fetch('http://localhost:8000/api/addComment/', {
+const FetchAddComment = (token:string, inputVal:any, imageId:any) => fetch('http://localhost:8000/api/addComment/', {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
@@ -75,11 +71,82 @@ const FetchAddComment = (token:any, inputVal:any, imageId:any) => fetch('http://
 
 })
 
+const FetchAddSubscribe = (token:string,username:string) => fetch('http://localhost:8000/api/addSubscribe/', {
+  // credentials: 'include',
+  method: 'POST',
+  // mode: 'same-origin',
+  // mode: 'no-cors',
+  headers: {
+    // "Access-Control-Allow-Origin": "*",
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+    'Authorization': `Token ${token}`
+  },
+  body: JSON.stringify({'username': username})
+})
+const FetchAddPhoto = (token:string,formData:any) => fetch('http://localhost:8000/api/addPhoto/', {
+  method: 'POST',
+  // mode: 'same-origin',
+  // mode: 'no-cors',
+  headers: {
+    // "Access-Control-Allow-Origin": "*",
+    'Accept': 'application/json',
+    // 'Content-Type': 'application/json',
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+    // 'Content-Type': 'multipart/form-data; boundary=—-WebKitFormBoundaryfgtsKTYLsT7PNUVD',
+    'X-CSRFToken': csrftoken,
+    'Authorization': `Token ${token}`
+  },
+  // body: JSON.stringify({'picture' : picture, 'description': description})
+  body: formData
+})
+const FetchChangePassword = (token:string, oldPassword:string, newPassword:string) => fetch('http://localhost:8000/api/accounts/changePassword/', {
+  // credentials: 'include',
+  method: 'POST',
+  // mode: 'same-origin',
+  // mode: 'no-cors',
+  headers: {
+    // "Access-Control-Allow-Origin": "*",
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+    'Authorization': `Token ${token}`
+  },
+  body: JSON.stringify({'oldPassword' : oldPassword, 'newPassword': newPassword})
+
+})
+const FetchChangeUserProfile = (token:string, formData:any) => fetch('http://localhost:8000/api/accounts/changeUserProfile/', {
+  //picture:any, description:string )
+  // credentials: 'include',
+  method: 'POST',
+  // mode: 'same-origin',
+  // mode: 'no-cors',
+  headers: {
+    // "Access-Control-Allow-Origin": "*",
+    'Accept': 'application/json',
+    // 'Content-Type': 'application/json',
+    // 'Content-Type': 'application/x-www-form-urlencoded',
+    // 'Content-Type': 'multipart/form-data; boundary=—-WebKitFormBoundaryfgtsKTYLsT7PNUVD',
+    'X-CSRFToken': csrftoken,
+    'Authorization': `Token ${token}`
+  },
+  // body: JSON.stringify({'picture' : picture, 'description': description})
+  body: formData
+
+})
+
+
+
 
 export {
   FetchRegister,
   FetchLogin,
   FetchUsers,
   FetchAddLike,
-  FetchAddComment
+  FetchAddComment,
+  FetchChangePassword,
+  FetchChangeUserProfile,
+  FetchAddSubscribe,
+  FetchAddPhoto
 };

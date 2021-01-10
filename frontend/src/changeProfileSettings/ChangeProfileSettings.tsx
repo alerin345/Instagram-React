@@ -1,21 +1,46 @@
-import React from 'react';
+// @ts-nocheck
+import React, { useContext, useState } from 'react';
 import './ChangeProfileSettings.css';
+import Menu from './../components/menu/Menu';
+import { FetchChangeUserProfile } from './../components/fetch/Fetch'
+import { UserContext } from './../components/userContext/UserContext'
 
 function ChangeProfileSettings() {
+  const [description, setDescription] = useState("")
+  const [image, setImage] = useState("")
+  const {user, setUser} = useContext(UserContext);
+
   const submit = (e:any) => {
     e.preventDefault()
-    console.log('submit')
+
+    const form = e.target;
+    let formData = new FormData();
+    if (image != ""){
+      formData.append('picture', image, image.name)
+    }
+    formData.append('description', description)
+    console.log(image,image.name,description)
+
+    FetchChangeUserProfile(user.token, formData) //, picture, description)
+    .then(async (res) => {
+      const response = await res.json()
+      console.log(response)
+    })
+    .catch((res) => {
+        console.log("error:",res.message);
+    });
+
   }
   return (
     <React.Fragment>
-      <form className="changeProfileSettings" onSubmit={submit}>
+      <Menu />
+      <form className="changeProfileSettings" onSubmit={submit} encType="multipart/form-data">
         <h1>Change profile settings:</h1>
         Picture
-        <input type="file" name="picture" accept="image/*" required />
+        <input type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
         Description
-        <textarea name="description"></textarea>
+        <textarea name="description" onChange={(e) => setDescription(e.target.value)}></textarea>
         <button type="submit" className="btn btn-primary">Change</button>
-        <a href="../../.">Main</a>
       </form>
     </React.Fragment>
   );

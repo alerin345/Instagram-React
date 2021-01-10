@@ -1,12 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './UserContainer.css'
 import Modals from './../modals/Modals'
+import { UserContext } from './../userContext/UserContext'
+import { FetchAddSubscribe } from './../fetch/Fetch'
 
 function AccountsOptions(props:any) {
+  const {user} = useContext(UserContext)
   const [showOptions, setShowOptions] = useState(false);
   const [showAddPhoto, setShowAddPhoto] = useState(false);
+  const [isSubscribe, setIsSubscribe] = useState(false); //edit
   const { ModalAddPhoto , ModalOptions } = Modals;
+  const {itsMyProfile}:any = props
+  const addSubscribe = () => {
+    const {username}:any = props
+    FetchAddSubscribe(user.token, username)
+    .then(async (res) => {
+      const response = await res.json()
+      console.log(response)
+      setIsSubscribe(is => !is)
+    })
+    .catch((res) => {
+      console.log("error:",res.message);
+    });
+  }
   return (
+    itsMyProfile ?
     <React.Fragment>
       <button className="btn btn-secondary" onClick={() => setShowOptions(true)}>Options</button>
       <button className="btn btn-secondary" onClick={() => setShowAddPhoto(true)}>Add Photo</button>
@@ -16,15 +34,17 @@ function AccountsOptions(props:any) {
       { showAddPhoto ?
       <ModalAddPhoto handleClose={() => setShowAddPhoto(false)}/>
       : "" }
-
-
+    </React.Fragment>
+    :
+    <React.Fragment>
+      <button className="btn btn-primary" onClick={addSubscribe}>{isSubscribe ?  "unsubscribe" : "subscribe"}</button>
     </React.Fragment>
   );
 }
 
 
 function UserContainer(props: any) {
-  const itsMe:boolean = true;
+  const {user} = useContext(UserContext)
   return (
     <div className="userContainer">
       <div className="flex-column">
@@ -33,10 +53,7 @@ function UserContainer(props: any) {
       <div className="flex-column">
         <h1>{props.username}</h1>
         <p>{props.description}</p>
-        { itsMe ?
-          <AccountsOptions />
-          :
-          "" }
+        <AccountsOptions itsMyProfile={props.itsMyProfile} username={props.username}/>
         <p>Subscriber (ile ma obserwujacych): {props.subscriber}</p>
         <p>Subscrbes (ile on obserwuje): {props.subscribes}</p>
       </div>
