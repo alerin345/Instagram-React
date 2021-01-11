@@ -1,5 +1,5 @@
 .customModal {
-  position: absolute;
+  position: fixed;
   background: white;
   left: 0px;
   top: 0px;

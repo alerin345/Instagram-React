@@ -15,6 +15,7 @@ urlpatterns = [
     path('addPhoto/', AddPhoto.as_view(), name='addPhoto'),
     path('deletePhoto/', DeletePhoto.as_view(), name='deletePhoto'),
     path('users/', GetUsers.as_view(), name='getUsers'),
+    path('subscribedImages/', GetSubscribedImages.as_view(), name='getSubscribedImages'),
     path('accounts/changePassword/', ChangePassword.as_view(), name='changePassword'),
     path('accounts/changeUserProfile/', ChangeUserProfile.as_view(), name='changeUserProfile'),
     path('login/', LoginAPI.as_view(), name='login'),

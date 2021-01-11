@@ -38,6 +38,37 @@ const FetchUsers = (token:string) => fetch("http://localhost:8000/api/users/", {
   }
 })
 
+const FetchUserProfile = (token:string, username:string) => fetch(`http://localhost:8000/api/userProfile/${username}/`, {
+      // credentials: 'include',
+      method: 'GET',
+      // mode: 'same-origin',
+      // mode: 'no-cors',
+      headers: {
+        // "Access-Control-Allow-Origin": "*",
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+        'Authorization': `Token ${token}`
+      },
+      // body: JSON.stringify("")
+
+    })
+const FetchSubscribedImages = (token:string) => fetch(`http://localhost:8000/api/subscribedImages/`, {
+      // credentials: 'include',
+      method: 'GET',
+      // mode: 'same-origin',
+      // mode: 'no-cors',
+      headers: {
+        // "Access-Control-Allow-Origin": "*",
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+        'Authorization': `Token ${token}`
+      },
+      // body: JSON.stringify("")
+
+    })
+
 
 const FetchAddLike = (token:string, imageId:any, isLike:any) => fetch('http://localhost:8000/api/addLike/', {
   // credentials: 'include',
@@ -135,6 +166,23 @@ const FetchChangeUserProfile = (token:string, formData:any) => fetch('http://loc
   body: formData
 
 })
+const FetchDeletePhoto = (token:string, imageId:any) => fetch('http://localhost:8000/api/deletePhoto/', {
+  //picture:any, description:string )
+  // credentials: 'include',
+  method: 'POST',
+  // mode: 'same-origin',
+  // mode: 'no-cors',
+  headers: {
+    // "Access-Control-Allow-Origin": "*",
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'X-CSRFToken': csrftoken,
+    'Authorization': `Token ${token}`
+  },
+  // body: JSON.stringify({'picture' : picture, 'description': description})
+  body: JSON.stringify({'imageId' : imageId})
+
+})
 
 
 
@@ -142,11 +190,14 @@ const FetchChangeUserProfile = (token:string, formData:any) => fetch('http://loc
 export {
   FetchRegister,
   FetchLogin,
+  FetchUserProfile,
   FetchUsers,
+  FetchSubscribedImages,
   FetchAddLike,
   FetchAddComment,
   FetchChangePassword,
   FetchChangeUserProfile,
   FetchAddSubscribe,
-  FetchAddPhoto
+  FetchAddPhoto,
+  FetchDeletePhoto
 };

@@ -3,8 +3,10 @@ import './ImageContainer.css';
 import Comments from './../comments/Comments';
 import { Link } from "react-router-dom"
 import csrftoken from './../csrftoken/csrftoken'
-import { FetchAddLike } from './../fetch/Fetch'
+import { FetchAddLike, FetchDeletePhoto } from './../fetch/Fetch'
 import { UserContext } from './../userContext/UserContext'
+import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
+import Modals from './../modals/Modals'
 
 function AddLike(props: any) {
   const {user} = useContext(UserContext)
@@ -37,12 +39,20 @@ function AddLike(props: any) {
 
 function ImageContainer(props: any) {
   const date = new Date(props.date).toString()
-
+  const { user } = useContext(UserContext)
+  const { setDeleteImage } = useContext(DeleteImageContext)
   const [likesCount, setLikesCount] = useState(props.likesCount)
   const [commentsCount, setCommentsCount] = useState(props.commentsCount)
+  const [showDeletePhoto, setShowDeletePhoto] = useState(true);
 
   return (
     <div className="imageContainer">
+    { props.itsMyProfile ?
+    <button onClick={() => {
+      setDeleteImage(props.id)
+      props.setShowDeletePhoto(true)
+    }}>x</button>
+    : "" }
       { props.username ?
         <Link to={props.username}>{props.username}</Link> : ""
       }
@@ -50,8 +60,8 @@ function ImageContainer(props: any) {
       <p>{props.description}</p>
       <p>likes: {likesCount} comments: {commentsCount}</p>
       <p>date add: {date}</p>
-      <AddLike imageId={props.imageId} isLike={props.isLike} setLikesCount={setLikesCount}/>
-      <Comments imageId={props.imageId} comments={props.comments} setCommentsCount={setCommentsCount} />
+      <AddLike imageId={props.id} isLike={props.isLike} setLikesCount={setLikesCount}/>
+      <Comments imageId={props.id} comments={props.comments} setCommentsCount={setCommentsCount} />
 
     </div>
   );

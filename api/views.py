@@ -135,6 +135,28 @@ class GetUsers(generics.GenericAPIView):
         return Response({
             'usersList' : users
         })
+
+class GetSubscribedImages(generics.GenericAPIView):
+    authentication_classes = (TokenAuthentication,)
+    permission_classes = (IsAuthenticated,)
+    def get(self, request, *args, **kwargs):
+        print(request.user)
+        user = User.objects.get(username=request.user)
+        subscribed = Subscription.objects.filter(userSubscribed=user).values_list('user', flat=True)
+        print(subscribed[0])
+
+        images = []
+        for i in range(0,len(subscribed)):
+            user2 = User.objects.get(id=subscribed[i])
+            images += getImages(user,user2)
+
+        print(images)
+        images = sorted(images, key=lambda i: i['date'], reverse=True)
+        return Response({
+            'user': user2.username,
+            'images' : images
+        })
+
 class AddComment(generics.GenericAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
@@ -344,7 +366,7 @@ def itsMe(username, username2):
 
 
 def getImages(user,user2):
-    images = Image.objects.filter(user=user2)
+    images = Image.objects.filter(user=user2).order_by('-date')
     imagesList = []
     for i in range(0,len(images)):
         id = images[i].id
@@ -365,6 +387,6 @@ def getImages(user,user2):
             comments = []
 
         commentsCount = len(comments)
-        dic = {'id': id, 'image': images[i].picture.url, 'description' : description, 'date' : date, 'isLike' : isLike, 'likesCount': likesCount, 'commentsCount' : commentsCount, "comments": list(comments) }
+        dic = {'id': id, 'username': user2.username, 'image': images[i].picture.url, 'description' : description, 'date' : date, 'isLike' : isLike, 'likesCount': likesCount, 'commentsCount' : commentsCount, "comments": list(comments) }
         imagesList.append(dic)
     return imagesList

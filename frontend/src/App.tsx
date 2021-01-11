@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './App.css';
 
 import Menu from './components/menu/Menu';
@@ -8,11 +8,12 @@ import {UserContext} from './components/userContext/UserContext'
 import { UsersListContext } from './components/usersListContext/UsersListContext'
 import csrftoken from './components/csrftoken/csrftoken'
 import { Link } from "react-router-dom"
-import { FetchUsers } from './components/fetch/Fetch'
+import { FetchUsers, FetchSubscribedImages} from './components/fetch/Fetch'
 
 function App() {
   const {user} = useContext(UserContext)
   const {usersList, setUsersList} = useContext(UsersListContext)
+  const [images,setImages] = useState([])
 
   useEffect(() => {
     FetchUsers(user.token)
@@ -26,6 +27,16 @@ function App() {
     .catch((res) => {
         console.log("error:",res.message);
     });
+
+    FetchSubscribedImages(user.token)
+    .then(async (res:any) => {
+          const response = await res.json()
+          await setImages(response.images)
+          await console.log(response)
+        })
+        .catch((res) => {
+            console.log("error:",res.message);
+        });
   }, [user])
 
 
@@ -38,10 +49,13 @@ function App() {
       <Link to="alerin345" />
       <UserSearchBox />
       { /* loop*/ }
-      {/*
-      <ImageContainer username="alerin345" image="https://ecsmedia.pl/c/fototapeta-husky-syberyjski-8-elementow-368x248-cm-b-iext51388152.jpg"
-      description="blabla" likesCount="1" commentsCount="5" date="5 grudnia"/>
-      */}
+      { images.map( (image:any,id:number) =>
+        <ImageContainer
+        key={id}
+        {...image}
+        />
+      )
+      }
       {/* end loop */}
     </div>
   );

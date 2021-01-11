@@ -11,33 +11,45 @@ import { Route, Switch, /*Link,*/ BrowserRouter as Router } from 'react-router-d
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import { UserContext } from "./components/userContext/UserContext"
+import { DeleteImageContext } from "./components/deleteImageContext/DeleteImageContext"
 import { UsersListContext } from "./components/usersListContext/UsersListContext"
 import { ProtectedRoute } from "./protectedRoute/ProtectedRoute"
 
 function Index(props:any) {
   const [user, setUser]:any = useState(null)
   const [usersList, setUsersList]:any = useState(null)
+  const [deleteImage, setDeleteImage]:any = useState(null)
   const providerValue = useMemo(() => ({user,setUser}), [user, setUser]);
   const providerValue2 = useMemo(() => ({usersList,setUsersList}), [usersList, setUsersList]);
+  const providerValue3 = useMemo(() => ({deleteImage,setDeleteImage}), [deleteImage, setDeleteImage]);
   const localValidate:any = localStorage.getItem("user")
   const localValidate2:any = localStorage.getItem("usersList")
   useEffect( () => {
+    try {
       setUser(JSON.parse(localValidate) || null)
       setUsersList(JSON.parse(localValidate2) || null)
+    }
+    catch (e) {
+      setUser(null)
+      setUsersList(null)
+    }
   }, [])
 return (
     <Router>
+
       <UserContext.Provider value={providerValue}>
         <UsersListContext.Provider value={providerValue2}>
-          <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/register" component={Register} />
+            <DeleteImageContext.Provider value={providerValue3}>
+              <Switch>
+                <Route path="/login" component={Login} />
+                <Route path="/register" component={Register} />
 
-              <ProtectedRoute exact path="/" component={App} />
-              <ProtectedRoute path="/accounts/profileSettings" component={ChangeProfileSettings} />
-              <ProtectedRoute path="/accounts/changePassword" component={ChangePassword} />
-              <ProtectedRoute path="/:username" component={UserProfile} />
-            </Switch>
+                <ProtectedRoute exact path="/" component={App} />
+                <ProtectedRoute path="/accounts/profileSettings" component={ChangeProfileSettings} />
+                <ProtectedRoute path="/accounts/changePassword" component={ChangePassword} />
+                <ProtectedRoute path="/:username" component={UserProfile} />
+              </Switch>
+            </DeleteImageContext.Provider>
         </UsersListContext.Provider>
       </UserContext.Provider>
     </Router>

@@ -32,7 +32,7 @@ function Menu(props: any) {
           <Link to="/">Main</Link>
         </li>
         <li>
-          <Link to={user.username}>User Profile</Link>
+          <Link to={{pathname: "/"+user.username}}>User Profile</Link>
         </li>
         { user.username ?
         (

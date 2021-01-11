@@ -42,9 +42,9 @@ function Login() {
     });
   }
   useEffect( () => {
-    // localStorage.removeItem('user')
-    // localStorage.removeItem('usersList')
-    // setUser(null)
+    localStorage.removeItem('user')
+    localStorage.removeItem('usersList')
+    setUser(null)
   },[])
 
   return (
