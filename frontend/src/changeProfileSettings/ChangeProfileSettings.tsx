@@ -18,8 +18,11 @@ function ChangeProfileSettings() {
     if (image != ""){
       formData.append('picture', image, image.name)
     }
+    else {
+      formData.append('picture'," ")
+    }
     formData.append('description', description)
-    console.log(image,image.name,description)
+    console.log(image,"","")
 
     FetchChangeUserProfile(user.token, formData) //, picture, description)
     .then(async (res) => {
@@ -36,7 +39,7 @@ function ChangeProfileSettings() {
       <Menu />
       <form className="changeProfileSettings" onSubmit={submit} encType="multipart/form-data">
         <h1>Change profile settings:</h1>
-        Picture
+        Picture (if don't wanna change profile picture, leave it blank)
         <input type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
         Description
         <textarea name="description" onChange={(e) => setDescription(e.target.value)}></textarea>

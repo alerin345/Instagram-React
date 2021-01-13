@@ -26,7 +26,7 @@ const ModalOptions = (props:any) => {
   return (
     <div className="customModal">
       <button className="btn btn-secondary">
-      <Link to="/accounts/profileSettings" >
+      <Link to={{ pathname: "/accounts/profileSettings"}} >
       Change profile settings
       </Link>
       </button>

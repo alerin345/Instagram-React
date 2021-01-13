@@ -2,8 +2,10 @@ import React, {useState, useEffect, useContext} from 'react';
 import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 
+// const api:string = '10.220.0.74'
+const api:string = 'localhost'
 
-const FetchRegister = (data:any) => fetch("http://localhost:8000/api/register/", {
+const FetchRegister = (data:any) => fetch(`http://${api}:8000/api/register/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
@@ -15,7 +17,7 @@ const FetchRegister = (data:any) => fetch("http://localhost:8000/api/register/",
   body: JSON.stringify(data)
 })
 
-const FetchLogin = (data:any) => fetch("http://localhost:8000/api/login/", {
+const FetchLogin = (data:any) => fetch(`http://${api}:8000/api/login/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
@@ -26,7 +28,7 @@ const FetchLogin = (data:any) => fetch("http://localhost:8000/api/login/", {
   },
   body: JSON.stringify(data)
 })
-const FetchUsers = (token:string) => fetch("http://localhost:8000/api/users/", {
+const FetchUsers = (token:string) => fetch(`http://${api}:8000/api/users/`, {
   // credentials: 'include',
     method: 'GET',
   // mode: 'same-origin',
@@ -38,45 +40,45 @@ const FetchUsers = (token:string) => fetch("http://localhost:8000/api/users/", {
   }
 })
 
-const FetchUserProfile = (token:string, username:string) => fetch(`http://localhost:8000/api/userProfile/${username}/`, {
+const FetchUserProfile = (token:string, username:string) => fetch(`http://${api}:8000/api/userProfile/${username}/`, {
       // credentials: 'include',
       method: 'GET',
       // mode: 'same-origin',
       // mode: 'no-cors',
       headers: {
-        // "Access-Control-Allow-Origin": "*",
+        // `Access-Control-Allow-Origin`: `*`,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
         'Authorization': `Token ${token}`
       },
-      // body: JSON.stringify("")
+      // body: JSON.stringify(``)
 
     })
-const FetchSubscribedImages = (token:string) => fetch(`http://localhost:8000/api/subscribedImages/`, {
+const FetchSubscribedImages = (token:string) => fetch(`http://${api}:8000/api/subscribedImages/`, {
       // credentials: 'include',
       method: 'GET',
       // mode: 'same-origin',
       // mode: 'no-cors',
       headers: {
-        // "Access-Control-Allow-Origin": "*",
+        // `Access-Control-Allow-Origin`: `*`,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'X-CSRFToken': csrftoken,
         'Authorization': `Token ${token}`
       },
-      // body: JSON.stringify("")
+      // body: JSON.stringify(``)
 
     })
 
 
-const FetchAddLike = (token:string, imageId:any, isLike:any) => fetch('http://localhost:8000/api/addLike/', {
+const FetchAddLike = (token:string, imageId:any, isLike:any) => fetch(`http://${api}:8000/api/addLike/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
@@ -86,13 +88,13 @@ const FetchAddLike = (token:string, imageId:any, isLike:any) => fetch('http://lo
 
 })
 
-const FetchAddComment = (token:string, inputVal:any, imageId:any) => fetch('http://localhost:8000/api/addComment/', {
+const FetchAddComment = (token:string, inputVal:any, imageId:any) => fetch(`http://${api}:8000/api/addComment/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
@@ -102,13 +104,13 @@ const FetchAddComment = (token:string, inputVal:any, imageId:any) => fetch('http
 
 })
 
-const FetchAddSubscribe = (token:string,username:string) => fetch('http://localhost:8000/api/addSubscribe/', {
+const FetchAddSubscribe = (token:string,username:string) => fetch(`http://${api}:8000/api/addSubscribe/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
@@ -116,12 +118,12 @@ const FetchAddSubscribe = (token:string,username:string) => fetch('http://localh
   },
   body: JSON.stringify({'username': username})
 })
-const FetchAddPhoto = (token:string,formData:any) => fetch('http://localhost:8000/api/addPhoto/', {
+const FetchAddPhoto = (token:string,formData:any) => fetch(`http://${api}:8000/api/addPhoto/`, {
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     // 'Content-Type': 'application/json',
     // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -132,13 +134,13 @@ const FetchAddPhoto = (token:string,formData:any) => fetch('http://localhost:800
   // body: JSON.stringify({'picture' : picture, 'description': description})
   body: formData
 })
-const FetchChangePassword = (token:string, oldPassword:string, newPassword:string) => fetch('http://localhost:8000/api/accounts/changePassword/', {
+const FetchChangePassword = (token:string, oldPassword:string, newPassword:string) => fetch(`http://${api}:8000/api/accounts/changePassword/`, {
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,
@@ -147,14 +149,14 @@ const FetchChangePassword = (token:string, oldPassword:string, newPassword:strin
   body: JSON.stringify({'oldPassword' : oldPassword, 'newPassword': newPassword})
 
 })
-const FetchChangeUserProfile = (token:string, formData:any) => fetch('http://localhost:8000/api/accounts/changeUserProfile/', {
+const FetchChangeUserProfile = (token:string, formData:any) => fetch(`http://${api}:8000/api/accounts/changeUserProfile/`, {
   //picture:any, description:string )
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     // 'Content-Type': 'application/json',
     // 'Content-Type': 'application/x-www-form-urlencoded',
@@ -166,14 +168,14 @@ const FetchChangeUserProfile = (token:string, formData:any) => fetch('http://loc
   body: formData
 
 })
-const FetchDeletePhoto = (token:string, imageId:any) => fetch('http://localhost:8000/api/deletePhoto/', {
+const FetchDeletePhoto = (token:string, imageId:any) => fetch(`http://${api}:8000/api/deletePhoto/`, {
   //picture:any, description:string )
   // credentials: 'include',
   method: 'POST',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
-    // "Access-Control-Allow-Origin": "*",
+    // `Access-Control-Allow-Origin`: `*`,
     'Accept': 'application/json',
     'Content-Type': 'application/json',
     'X-CSRFToken': csrftoken,

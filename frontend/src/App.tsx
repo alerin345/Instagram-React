@@ -10,15 +10,26 @@ import csrftoken from './components/csrftoken/csrftoken'
 import { Link } from "react-router-dom"
 import { FetchUsers, FetchSubscribedImages} from './components/fetch/Fetch'
 
+
+type Images = {
+  id: number;
+  username: string;
+  image: string;
+  description: string;
+  isLike: boolean;
+  date: string;
+}
+
 function App() {
   const {user} = useContext(UserContext)
-  const {usersList, setUsersList} = useContext(UsersListContext)
-  const [images,setImages] = useState([])
+  const {usersList, setUsersList}:any = useContext(UsersListContext)
+  const [images,setImages] = useState<Images[]>([])
 
   useEffect(() => {
     FetchUsers(user.token)
     .then(async (res) => {
       const response = await res.json()
+      console.log('retypes:',response)
       const { usersList } = await response
       await setUsersList(usersList)
       await localStorage.setItem('usersList',JSON.stringify(usersList))
@@ -43,12 +54,11 @@ function App() {
   return (
     <div className="App">
       <Menu />
-      <h1>{JSON.stringify(user)}</h1>
-      <h1>{JSON.stringify(usersList)}</h1>
-      <h2>{user.username}</h2>
+      <h2>Logged in to: {user.username}</h2>
       <Link to="alerin345" />
       <UserSearchBox />
       { /* loop*/ }
+      <div className="images">
       { images.map( (image:any,id:number) =>
         <ImageContainer
         key={id}
@@ -56,6 +66,7 @@ function App() {
         />
       )
       }
+      </div>
       {/* end loop */}
     </div>
   );

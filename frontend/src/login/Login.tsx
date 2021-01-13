@@ -41,11 +41,11 @@ function Login() {
         console.log("error:",res.message);
     });
   }
-  useEffect( () => {
-    localStorage.removeItem('user')
-    localStorage.removeItem('usersList')
-    setUser(null)
-  },[])
+  // useEffect( () => {
+  //   localStorage.removeItem('user')
+  //   localStorage.removeItem('usersList')
+  //   setUser(null)
+  // },[])
 
   return (
     user ?

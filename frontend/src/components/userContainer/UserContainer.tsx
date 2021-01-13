@@ -9,7 +9,6 @@ function AccountsOptions(props:any) {
   const {user} = useContext(UserContext)
   const [showOptions, setShowOptions] = useState(false);
   const [showAddPhoto, setShowAddPhoto] = useState(false);
-  const [isSubscribe, setIsSubscribe] = useState(props.isSubscribe ? true : false); // bug
   const { ModalAddPhoto, ModalOptions } = Modals;
   const {itsMyProfile}:any = props
 
@@ -19,7 +18,7 @@ function AccountsOptions(props:any) {
     .then(async (res) => {
       const response = await res.json()
       console.log(response)
-      setIsSubscribe((sub):any => !sub)
+      await props.setReload((r:any) => !r)
     })
     .catch((res) => {
       console.log("error:",res.message);
@@ -31,7 +30,7 @@ function AccountsOptions(props:any) {
       <button className="btn btn-secondary" onClick={() => setShowOptions(true)}>Options</button>
       <button className="btn btn-secondary" onClick={() => setShowAddPhoto(true)}>Add Photo</button>
       { showOptions ?
-      <ModalOptions handleClose={() => setShowOptions(false)}/>
+      <ModalOptions handleClose={() => setShowOptions(false)} setReload={props.setReload}/>
       : "" }
       { showAddPhoto ?
       <ModalAddPhoto handleClose={() => setShowAddPhoto(false)} setReload={props.setReload}/>
@@ -39,7 +38,7 @@ function AccountsOptions(props:any) {
     </React.Fragment>
     :
     <React.Fragment>
-      <button className="btn btn-primary" onClick={() => addSubscribe()}>{isSubscribe ?  "unsubscribe" : "subscribe"}</button>
+      <button className="btn btn-primary" onClick={() => addSubscribe()}>{props.isSubscribe ?  "unsubscribe" : "subscribe"}</button>
     </React.Fragment>
   );
 }

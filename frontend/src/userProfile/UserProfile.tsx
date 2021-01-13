@@ -10,7 +10,12 @@ import { UserContext } from './../components/userContext/UserContext'
 import { UsersListContext } from './../components/usersListContext/UsersListContext'
 import { FetchUserProfile } from './../components/fetch/Fetch'
 
-function NotFound(props:any) {
+
+type NotFoundProps = {
+  username: string
+}
+
+const NotFound: React.FC<NotFoundProps> = (props) => {
   return (
     <React.Fragment>
       <h1>We don't found user: {props.username}</h1>
@@ -19,24 +24,47 @@ function NotFound(props:any) {
   );
 }
 
-function UserProfile(props:any) {
+
+type Comments = {
+  user: string;
+  value: string;
+  date: string;
+}
+
+type Images = {
+  id?: number;
+  username?: string;
+  image?: string;
+  description?: string;
+  isLike?: boolean;
+  date?: string;
+}
+
+type UserProfile = {
+  user?: string;
+  images: Images[];
+  itsMyProfile?: boolean;
+  description?: string;
+  subscriber?: number;
+  subscribes?: number;
+  isSubscribe?: boolean;
+}
+
+const UserProfile = (props:any) =>{
   const { user } = useContext(UserContext);
   const { usersList } = useContext(UsersListContext);
-  const [userProfile, setUserProfile]:any[] = useState({'images' : []})
-  const [images, setImages]:any[] = useState([])
-  const [reload, setReload]:any = useState(false)
-  const [showDeletePhoto, setShowDeletePhoto] = useState(false);
-  // const users = ['alerin','alerin345', 'alerin450', 'denis']
-  // const [isUser, setUsers] = useState(null)
+  const [userProfile, setUserProfile] = useState<UserProfile>({'images' : []})
+  const [reload, setReload] = useState<boolean>(false)
+  const [showDeletePhoto, setShowDeletePhoto] = useState<boolean>(false);
+
   const { username } = props.match.params;
   useEffect( () => {
     // console.log(username)
     FetchUserProfile(user.token, username)
     .then(async (res) => {
-      const response = await res.json()
+      const response:UserProfile = await res.json()
       await console.log(response)
       await setUserProfile(response)
-      // await console.log(response)
     })
     .catch((res) => {
         console.log("error:",res.message);
@@ -48,7 +76,7 @@ function UserProfile(props:any) {
       <Menu />
       <UserContainer username={username}
       itsMyProfile={userProfile.itsMyProfile}
-      image={userProfile.image}
+      image={userProfile.images}
       description={userProfile.description}
       subscriber={userProfile.subscriber}
       subscribes={userProfile.subscribes}
@@ -58,16 +86,16 @@ function UserProfile(props:any) {
       setReload={setReload}
        />
 
-      { /* loop*/ }
-
       { showDeletePhoto ?
       <Modals.ModalDeletePhoto
       handleClose={() => setShowDeletePhoto(false)}
       setReload={setReload}
       />
       : "" }
+
+      <div className="images">
       {
-          userProfile.images.map( (image:any,id:any) =>
+          userProfile.images.map( (image:any,id:Number) =>
             <ImageContainer
             key={id}
             {...image}
@@ -76,8 +104,9 @@ function UserProfile(props:any) {
             setShowDeletePhoto={setShowDeletePhoto}
             />
           )
-    }
-      {/* end loop */}
+      }
+      </div>
+
     </React.Fragment>
     :
     <NotFound username={username}/>

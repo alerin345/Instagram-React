@@ -8,7 +8,13 @@ import { UserContext } from './../userContext/UserContext'
 import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
 import Modals from './../modals/Modals'
 
-function AddLike(props: any) {
+type AddLikeProps = {
+  imageId: Number;
+  isLike: boolean;
+  setLikesCount: (v: number) => void;
+}
+
+const AddLike: React.FC<AddLikeProps> = (props: any) => {
   const {user} = useContext(UserContext)
   const [isLike, setIsLike] = useState(props.isLike || false)
   const click = (e: any) => {
@@ -37,13 +43,31 @@ function AddLike(props: any) {
   );
 }
 
-function ImageContainer(props: any) {
+type ImageProps = {
+  itsMyProfile: boolean;
+  setShowDeletePhoto: (v: boolean) => void;
+  id: Number;
+  username: string;
+  description: string;
+  image: string;
+  likesCount: Number;
+  commentsCount: Number;
+  comments: {
+    user: string;
+    date: string;
+    value: string
+  }
+  isLike: boolean;
+  date: string;
+}
+
+const ImageContainer: React.FC<ImageProps> = (props) => {
   const date = new Date(props.date).toString()
   const { user } = useContext(UserContext)
   const { setDeleteImage } = useContext(DeleteImageContext)
   const [likesCount, setLikesCount] = useState(props.likesCount)
   const [commentsCount, setCommentsCount] = useState(props.commentsCount)
-  const [showDeletePhoto, setShowDeletePhoto] = useState(true);
+  // const [showDeletePhoto, setShowDeletePhoto] = useState(true);
 
   return (
     <div className="imageContainer">

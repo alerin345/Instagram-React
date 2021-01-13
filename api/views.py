@@ -253,16 +253,20 @@ class ChangeUserProfile(generics.UpdateAPIView):
     serializer_class = ChangeUserProfileSerializer
     # parser_classes = [MultiPartParser]
     def post(self, request, *args, **kwargs):
-        picture = request.FILES['picture']
+        picture = request.FILES.get('picture', None)
+        print(picture)
         description = request.data['description']
         profile, created = Profile.objects.get_or_create(user=request.user)
+        print('cr:',created)
         if created:
             profile.description = description
-            profile.picture = picture
+            if picture != None:
+                profile.picture = picture
             profile.save()
         else:
             profile.description = description
-            profile.picture = picture
+            if picture != None:
+                profile.picture = picture
             profile.save()
         return Response({
             "message" : "user porfile has been changed"
