@@ -28,15 +28,9 @@ function Register() {
       FetchRegister(data)
       .then(async (res) => {
         const response = await res.json()
-        await console.log(response,response.token,response.user)
         if(response.hasOwnProperty("username"))
         {
           await setErrors(response)
-        }
-        else {
-          console.log(response);
-          console.log(response.token)
-          console.log(response.user.id,response.user.username)
         }
       })
       .catch((res) => {

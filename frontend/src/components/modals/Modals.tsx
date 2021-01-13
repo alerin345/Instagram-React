@@ -81,7 +81,6 @@ const ModalDeletePhoto = (props:any) => {
       window.removeEventListener('keyup', upHandler);
     };
   }, [upHandler]);
-  console.log('props modal',props)
 
   return (
     <div className="customModal">

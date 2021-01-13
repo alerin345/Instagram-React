@@ -6,14 +6,14 @@ import { UsersListContext } from './../usersListContext/UsersListContext'
 
 function UserSearchBox(props: any) {
   const {usersList} = useContext(UsersListContext)
-  const [input, setInput]:any = useState("/")
+  const [input, setInput] = useState<string>("/")
   const history = useHistory();
 
   const submit:any = (e:any) => history.push(input);
 
   return (
     <form className="UserSearchBox" onSubmit={submit}>
-      <input type="text" placeholder="username" onKeyDown={(e:any) => setInput(e.target.value)}/>
+      <input type="text" placeholder="username" onChange={(e:any) => setInput(e.target.value)}/>
        <button className="btn btn-primary" >find user</button>
     </form>
   );

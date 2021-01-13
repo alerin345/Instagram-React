@@ -29,7 +29,6 @@ function Login() {
         await setErrors(response)
       }
       else {
-        // const { user } = response
         const user = await { ...response.user, 'token': response.token }
         await console.log('res: ',response,"user: ",user);
         await localStorage.setItem('user',JSON.stringify(user))

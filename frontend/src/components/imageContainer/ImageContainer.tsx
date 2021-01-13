@@ -7,6 +7,7 @@ import { FetchAddLike, FetchDeletePhoto } from './../fetch/Fetch'
 import { UserContext } from './../userContext/UserContext'
 import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
 import Modals from './../modals/Modals'
+import timeSince from './../../functions/timeSince'
 
 type AddLikeProps = {
   imageId: Number;
@@ -18,22 +19,17 @@ const AddLike: React.FC<AddLikeProps> = (props: any) => {
   const {user} = useContext(UserContext)
   const [isLike, setIsLike] = useState(props.isLike || false)
   const click = (e: any) => {
-    // console.log(setLikes)
     if(isLike)
     {
       setIsLike(false)
       props.setLikesCount((n:number)=>n-1)
       FetchAddLike(user.token, props.imageId,isLike)
-      // console.log('a:',props.imageId,isLike)
     }
     else {
       setIsLike(true)
       props.setLikesCount((n:number)=>n+1)
-      // console.log(props.imageId,isLike)
       FetchAddLike(user.token, props.imageId,isLike)
-      // console.log('b:',props.imageId,isLike)
     }
-    // console.log('like: ', e.target)
   }
 
   return (
@@ -62,7 +58,7 @@ type ImageProps = {
 }
 
 const ImageContainer: React.FC<ImageProps> = (props) => {
-  const date = new Date(props.date).toString()
+  const date:string = timeSince(props.date)
   const { user } = useContext(UserContext)
   const { setDeleteImage } = useContext(DeleteImageContext)
   const [likesCount, setLikesCount] = useState(props.likesCount)

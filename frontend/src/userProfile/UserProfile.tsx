@@ -59,11 +59,9 @@ const UserProfile = (props:any) =>{
 
   const { username } = props.match.params;
   useEffect( () => {
-    // console.log(username)
     FetchUserProfile(user.token, username)
     .then(async (res) => {
       const response:UserProfile = await res.json()
-      await console.log(response)
       await setUserProfile(response)
     })
     .catch((res) => {

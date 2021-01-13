@@ -2,19 +2,17 @@
   display: flex;
   flex-wrap: wrap;
 }
-.addComment > * {
-  margin: 5px;
-}
 .imageContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding: 5px;
   margin: 10px 0;
   border: 1px solid black;
   width: auto;
   max-width: 600px;
+  position: relative;
+  box-sizing: border-box;
 }
 .imageContainer > img {
   width: 300px;

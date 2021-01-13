@@ -22,12 +22,10 @@ function ChangeProfileSettings() {
       formData.append('picture'," ")
     }
     formData.append('description', description)
-    console.log(image,"","")
 
     FetchChangeUserProfile(user.token, formData) //, picture, description)
     .then(async (res) => {
       const response = await res.json()
-      console.log(response)
     })
     .catch((res) => {
         console.log("error:",res.message);

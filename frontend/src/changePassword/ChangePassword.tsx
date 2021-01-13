@@ -27,7 +27,6 @@ function ChangePassword() {
           console.log("error:",res.message);
       });
     }
-    console.log('submit')
   }
   return (
     <React.Fragment>

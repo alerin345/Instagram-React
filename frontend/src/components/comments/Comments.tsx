@@ -3,6 +3,7 @@ import './Comments.css'
 import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 import { FetchAddComment } from './../fetch/Fetch'
+import timeSince from './../../functions/timeSince'
 
 function AddComment(props: any) {
   const { user } = useContext(UserContext)
@@ -15,13 +16,10 @@ function AddComment(props: any) {
     if(inputVal !== "") {
       addComment(inputVal)
       props.setCommentsCount((n:number) => n+1)
-      // console.log('imageId:',props.imageId)
 
       FetchAddComment(user.token,inputVal,props.imageId)
       .then(async (res) => {
         const response = await res.json()
-        await console.log(response)
-        // await console.log(response)
       })
       .catch((res) => {
           console.log("error:",res.message);
@@ -29,19 +27,22 @@ function AddComment(props: any) {
     }
   }
   return (
-    <form className="addComment" onSubmit={submit}>
-      <textarea></textarea>
-      <button className="btn btn-secondary">comment</button>
-    </form>
+    <div className="addComment-container">
+      <form className="addComment" onSubmit={submit}>
+        <textarea placeholder="Add a comment"></textarea>
+        <button className="btn btn-secondary">comment</button>
+      </form>
+    </div>
   );
 }
 
 function Comment(props: any) {
+  const date:string = timeSince(props.date);
   return (
     <li className="comment">
       <b>{props.username}:</b>
       <span>{props.value}</span>
-      <span>{props.date}</span>
+      <span>{date}</span>
     </li>
   );
 }
