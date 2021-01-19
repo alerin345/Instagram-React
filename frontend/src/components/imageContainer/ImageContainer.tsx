@@ -8,6 +8,9 @@ import { UserContext } from './../userContext/UserContext'
 import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
 import Modals from './../modals/Modals'
 import timeSince from './../../functions/timeSince'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faHeart as faHeartOff } from '@fortawesome/free-solid-svg-icons'
+import { faHeart as faHeartOn } from '@fortawesome/free-regular-svg-icons'
 
 type AddLikeProps = {
   imageId: Number;
@@ -33,8 +36,8 @@ const AddLike: React.FC<AddLikeProps> = (props: any) => {
   }
 
   return (
-    <div>
-      <button className="btn btn-primary" onClick={click}>{isLike ? "unlike" : "like"}</button>
+    <div className="post-actions">
+      <button className="btn-like" onClick={click}>{isLike ? <FontAwesomeIcon icon={faHeartOff} className="unlike" /> : <FontAwesomeIcon className="like" icon={faHeartOn} />}</button>
     </div>
   );
 }
@@ -66,7 +69,7 @@ const ImageContainer: React.FC<ImageProps> = (props) => {
   // const [showDeletePhoto, setShowDeletePhoto] = useState(true);
 
   return (
-    <div className="imageContainer">
+    <article className="imageContainer">
     { props.itsMyProfile ?
     <button onClick={() => {
       setDeleteImage(props.id)
@@ -74,16 +77,20 @@ const ImageContainer: React.FC<ImageProps> = (props) => {
     }}>x</button>
     : "" }
       { props.username ?
-        <Link to={props.username}>{props.username}</Link> : ""
+        <header className="imageContainer__header">
+          <img src="https://meetanentrepreneur.lu/wp-content/uploads/2019/08/profil-linkedin-300x300.jpg" alt={props.username} />
+          <Link to={props.username}>{props.username}</Link>
+        </header>
+        : ""
+
       }
       <img src={props.image} alt={props.description} />
-      <p>{props.description}</p>
-      <p>likes: {likesCount} comments: {commentsCount}</p>
-      <p>date add: {date}</p>
+      {/*<p>{props.description}</p>*/}
       <AddLike imageId={props.id} isLike={props.isLike} setLikesCount={setLikesCount}/>
-      <Comments imageId={props.id} comments={props.comments} setCommentsCount={setCommentsCount} />
+      <p className="post-stats">likes: {likesCount} comments: {commentsCount}</p>
+      <Comments imageId={props.id} comments={props.comments} setCommentsCount={setCommentsCount} addedPhotoDate={date}/>
 
-    </div>
+    </article>
   );
 }
 

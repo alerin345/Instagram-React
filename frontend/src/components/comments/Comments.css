@@ -1,6 +1,10 @@
 .comments {
   list-style: none;
-  padding: 0;
+  padding: 0 10px;
+  margin: 0;
+}
+.comments > li {
+  font-size: 14px;
 }
 .comment > * {
   margin: 5px;
@@ -8,7 +12,7 @@
 .addComment-container {
   width: 100%;
   height: 56px;
-  border-top: 1px solid black;
+  border-top: 1px solid var(--post-border);
 }
 .addComment {
   width: 100%;
@@ -20,7 +24,7 @@
 .addComment > textarea{
   position: absolute;
   height: 100%;
-  padding: 5px;
+  padding: 10px;
   bottom: 0px;
   left: 0px;
   width: calc(80% - 40px);
@@ -39,4 +43,16 @@
 
 .comments-container {
   position: relative;
+}
+.addComment__share {
+  border: 0px;
+  background: transparent;
+  color: #0095f6;
+}
+
+.addedPhotoDate {
+  color: grey;
+  /* margin: 10px 10px; */
+  margin-left: 6px;
+  font-size: 12px;
 }

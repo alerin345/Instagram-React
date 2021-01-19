@@ -1,24 +1,78 @@
+:root {
+  --post-border: rgba(239,239,239);
+}
+
+.imageContainer__header {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.imageContainer__header > img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin: 0 10px;
+}
+
 .addComment {
   display: flex;
   flex-wrap: wrap;
 }
+
+.images {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
 .imageContainer {
+  width: 600px;
+  height: auto;
+  background: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
   margin: 10px 0;
-  border: 1px solid black;
-  width: auto;
-  max-width: 600px;
+  border: 1px solid var(--post-border);
+  border-radius: 3px;
   position: relative;
   box-sizing: border-box;
 }
 .imageContainer > img {
-  width: 300px;
-  height: 300px;
+  width: 600px;
+  height: 600px;
+  border-top: 1px solid var(--post-border);
   margin: 0;
 }
 .imageContainer > p{
   margin: 0 5px;
+}
+
+
+.post-actions {
+  padding: 10px 10px 0px 10px;
+}
+.btn-like {
+  border: none;
+  background: none;
+
+}
+.btn-like > svg {
+  font-size: 25px;
+}
+.like {
+  color: black;
+}
+.unlike {
+  color: red;
+}
+.post-stats {
+  padding: 0 10px;
 }

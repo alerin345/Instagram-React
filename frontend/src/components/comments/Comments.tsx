@@ -4,6 +4,7 @@ import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 import { FetchAddComment } from './../fetch/Fetch'
 import timeSince from './../../functions/timeSince'
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function AddComment(props: any) {
   const { user } = useContext(UserContext)
@@ -30,7 +31,7 @@ function AddComment(props: any) {
     <div className="addComment-container">
       <form className="addComment" onSubmit={submit}>
         <textarea placeholder="Add a comment"></textarea>
-        <button className="btn btn-secondary">comment</button>
+        <button className="addComment__share">Share</button>
       </form>
     </div>
   );
@@ -40,9 +41,9 @@ function Comment(props: any) {
   const date:string = timeSince(props.date);
   return (
     <li className="comment">
-      <b>{props.username}:</b>
+      <b>{props.username}</b>
       <span>{props.value}</span>
-      <span>{date}</span>
+      {/*<span>{date}</span>*/}
     </li>
   );
 }
@@ -57,8 +58,8 @@ function Comments(props: any) {
           comments.map((comment:any, id:any) => (
             <Comment key={id} username={comment.user} value={comment.value} date={comment.date} />) )
       }
+      <span className="addedPhotoDate">{props.addedPhotoDate.toUpperCase()}</span>
       </ul>
-
       <AddComment imageId={props.imageId} setComments={setComments} setCommentsCount={props.setCommentsCount}/>
     </React.Fragment>
   );
