@@ -42,6 +42,7 @@ type Images = {
 
 type UserProfile = {
   user?: string;
+  image?: string;
   images: Images[];
   itsMyProfile?: boolean;
   description?: string;
@@ -74,7 +75,7 @@ const UserProfile = (props:any) =>{
       <Menu />
       <UserContainer username={username}
       itsMyProfile={userProfile.itsMyProfile}
-      image={userProfile.images}
+      image={userProfile.image}
       description={userProfile.description}
       subscriber={userProfile.subscriber}
       subscribes={userProfile.subscribes}

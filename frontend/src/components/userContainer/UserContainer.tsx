@@ -49,6 +49,7 @@ function UserContainer(props: any) {
   return (
     <div className="userContainer">
       <div className="flex-column">
+      {console.log(props)}
         <img src={props.image} alt="" />
       </div>
       <div className="flex-column">
