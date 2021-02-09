@@ -5,6 +5,7 @@ import AddPhoto from './../addPhoto/AddPhoto';
 import { UserContext } from './../userContext/UserContext';
 import { FetchDeletePhoto } from './../fetch/Fetch';
 import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
+import ImageContainer from './../imageContainer/ImageContainer';
 import './Modals.css';
 
 
@@ -99,6 +100,34 @@ const ModalDeletePhoto = (props:any) => {
     </div>
   );
 }
+const ModalImageContainer = (props:any) => {
+  const {user} = useContext(UserContext)
+  const { handleClose } = props;
+  const { deleteImage } = useContext(DeleteImageContext)
+  const upHandler = ({ key }:any) => {
+    if (key === 'Escape') {
+      handleClose()
+    }
+  };
+  useEffect(() => {
+    window.addEventListener('keyup', upHandler);
+    return () => {
+      window.removeEventListener('keyup', upHandler);
+    };
+  }, [upHandler]);
 
-const Modals = {  ModalAddPhoto, ModalOptions, ModalDeletePhoto }
+  return (
+    <div className="customModal userModal">
+      <ImageContainer
+      {...props.image}
+      // itsMyProfile={props.itsMyProfile}
+      setReload={props.setReload}
+      // setShowDeletePhoto={props.setShowDeletePhoto}
+      // itsMyProfile={userProfile.itsMyProfile}
+      />
+    </div>
+  );
+}
+
+const Modals = {  ModalAddPhoto, ModalOptions, ModalDeletePhoto, ModalImageContainer }
 export default Modals;

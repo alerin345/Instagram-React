@@ -3,13 +3,13 @@ import './UserProfile.css';
 import Menu from './../components/menu/Menu';
 import UserContainer from './../components/userContainer/UserContainer';
 import ImageContainer from './../components/imageContainer/ImageContainer';
+import UserImages from './../components/userImages/UserImages';
 import Modals from './../components/modals/Modals';
 import { Link } from "react-router-dom"
 import csrftoken from './../components/csrftoken/csrftoken'
 import { UserContext } from './../components/userContext/UserContext'
 import { UsersListContext } from './../components/usersListContext/UsersListContext'
 import { FetchUserProfile } from './../components/fetch/Fetch'
-
 
 type NotFoundProps = {
   username: string
@@ -92,19 +92,25 @@ const UserProfile = (props:any) =>{
       />
       : "" }
 
-      <div className="images">
+      <UserImages
+        images={userProfile.images}
+        itsMyProfile={userProfile.itsMyProfile}
+        setReload={setReload}
+        setShowDeletePhoto={setShowDeletePhoto}
+       />
       {
-          userProfile.images.map( (image:any,id:Number) =>
-            <ImageContainer
-            key={id}
-            {...image}
-            itsMyProfile={userProfile.itsMyProfile}
-            setReload={setReload}
-            setShowDeletePhoto={setShowDeletePhoto}
-            />
-          )
+        // <div className="images">
+          // userProfile.images.map( (image:any,id:Number) =>
+          //   <ImageContainer
+            // key={id}
+            // {...image}
+            // itsMyProfile={userProfile.itsMyProfile}
+            // setReload={setReload}
+            // setShowDeletePhoto={setShowDeletePhoto}
+          //   />
+          // )
+          // </div>
       }
-      </div>
 
     </React.Fragment>
     :
