@@ -58,6 +58,7 @@ type ImageProps = {
   }
   isLike: boolean;
   date: string;
+  closeModal?: any;
 }
 
 const ImageContainer: React.FC<ImageProps> = (props) => {
@@ -66,14 +67,17 @@ const ImageContainer: React.FC<ImageProps> = (props) => {
   const { setDeleteImage } = useContext(DeleteImageContext)
   const [likesCount, setLikesCount] = useState(props.likesCount)
   const [commentsCount, setCommentsCount] = useState(props.commentsCount)
-  // const [showDeletePhoto, setShowDeletePhoto] = useState(true);
-
+  const [isOpen, setIsOpen] = useState(false);
+  console.log('prop clo:',props.closeModal);
   return (
     <article className="imageContainer">
+
     { props.itsMyProfile ?
     <button onClick={() => {
       setDeleteImage(props.id)
       props.setShowDeletePhoto(true)
+      if (props.closeModal)
+        return <Modals.ModalDeletePhoto imageModalClose={props.closeModal}/>
     }}>x</button>
     : "" }
       { props.username ?

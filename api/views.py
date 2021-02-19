@@ -230,7 +230,7 @@ class ChangePassword(generics.UpdateAPIView):
     model = User
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         if 'newPassword' in request.data and 'oldPassword' in request.data:
             oldPassword = request.data['oldPassword']
             newPassword = request.data['newPassword']
@@ -252,7 +252,7 @@ class ChangeUserProfile(generics.UpdateAPIView):
     queryset = Profile.objects.all()
     serializer_class = ChangeUserProfileSerializer
     # parser_classes = [MultiPartParser]
-    def post(self, request, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
         picture = request.FILES.get('picture', None)
         print(picture)
         description = request.data['description']
@@ -345,7 +345,7 @@ class AddPhoto(generics.UpdateAPIView):
 class DeletePhoto(generics.UpdateAPIView):
     authentication_classes = (TokenAuthentication,)
     permission_classes = (IsAuthenticated,)
-    def post(self, request, *args, **kwargs):
+    def delete(self, request, *args, **kwargs):
         if 'imageId' in request.data:
             user = request.user
             imageId = request.data['imageId']

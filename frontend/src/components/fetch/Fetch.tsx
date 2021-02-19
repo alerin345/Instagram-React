@@ -136,7 +136,7 @@ const FetchAddPhoto = (token:string,formData:any) => fetch(`http://${api}:8000/a
 })
 const FetchChangePassword = (token:string, oldPassword:string, newPassword:string) => fetch(`http://${api}:8000/api/accounts/changePassword/`, {
   // credentials: 'include',
-  method: 'POST',
+  method: 'PUT',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
@@ -152,7 +152,7 @@ const FetchChangePassword = (token:string, oldPassword:string, newPassword:strin
 const FetchChangeUserProfile = (token:string, formData:any) => fetch(`http://${api}:8000/api/accounts/changeUserProfile/`, {
   //picture:any, description:string )
   // credentials: 'include',
-  method: 'POST',
+  method: 'PUT',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {
@@ -171,7 +171,7 @@ const FetchChangeUserProfile = (token:string, formData:any) => fetch(`http://${a
 const FetchDeletePhoto = (token:string, imageId:any) => fetch(`http://${api}:8000/api/deletePhoto/`, {
   //picture:any, description:string )
   // credentials: 'include',
-  method: 'POST',
+  method: 'DELETE',
   // mode: 'same-origin',
   // mode: 'no-cors',
   headers: {

@@ -82,9 +82,9 @@ const ModalDeletePhoto = (props:any) => {
       window.removeEventListener('keyup', upHandler);
     };
   }, [upHandler]);
-
+  console.log('imageModalClose',props.imageModalClose);
   return (
-    <div className="customModal">
+    <div className="customModal mDeletePhoto">
       Are u sure u want delete image number: {deleteImage}
       <div>
         <button className='btn btn-danger' onClick={() => {
@@ -93,7 +93,13 @@ const ModalDeletePhoto = (props:any) => {
               console.log("error:",res.message);
           })
           .then( () => props.setReload((r:any) => !r))
-          .then( () => handleClose());
+          .then(
+            () => {
+              if(typeof props.imageModalClose === 'function')
+              props.imageModalClose();
+              handleClose()
+            }
+        );
         }}>Yes</button>
         <button className='btn btn-secondary' onClick={() => handleClose()}>No</button>
       </div>
@@ -102,7 +108,7 @@ const ModalDeletePhoto = (props:any) => {
 }
 const ModalImageContainer = (props:any) => {
   const {user} = useContext(UserContext)
-  const { handleClose } = props;
+  const { handleClose }:any = props;
   const { deleteImage } = useContext(DeleteImageContext)
   const upHandler = ({ key }:any) => {
     if (key === 'Escape') {
@@ -120,9 +126,10 @@ const ModalImageContainer = (props:any) => {
     <div className="customModal userModal">
       <ImageContainer
       {...props.image}
-      // itsMyProfile={props.itsMyProfile}
+      itsMyProfile={props.itsMyProfile}
       setReload={props.setReload}
-      // setShowDeletePhoto={props.setShowDeletePhoto}
+      setShowDeletePhoto={props.setShowDeletePhoto}
+      closeModal={handleClose}
       // itsMyProfile={userProfile.itsMyProfile}
       />
     </div>

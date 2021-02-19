@@ -39,10 +39,7 @@ $cd Instagram
 ```
 Install libraries:
 ```
-$pip install django
-$pip install django-extensions
-$python -m pip install Pillow
-$pip install django-bootstrap4
+$pip install -r requirements.txt
 ```
 To run project:
 ```
