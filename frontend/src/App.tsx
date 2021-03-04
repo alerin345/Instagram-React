@@ -6,19 +6,9 @@ import UserSearchBox from './components/userSearchBox/UserSearchBox';
 import ImageContainer from './components/imageContainer/ImageContainer';
 import {UserContext} from './components/userContext/UserContext'
 import { UsersListContext } from './components/usersListContext/UsersListContext'
-import csrftoken from './components/csrftoken/csrftoken'
 import { Link } from "react-router-dom"
 import { FetchUsers, FetchSubscribedImages} from './components/fetch/Fetch'
-
-
-type Images = {
-  id: number;
-  username: string;
-  image: string;
-  description: string;
-  isLike: boolean;
-  date: string;
-}
+import type { Images } from "Types/Types"
 
 function App() {
   const {user} = useContext(UserContext)
@@ -32,8 +22,8 @@ function App() {
       console.log('retypes:',response)
       const { usersList } = await response
       await setUsersList(usersList)
-      await localStorage.setItem('usersList',JSON.stringify(usersList))
-      await console.log(usersList)
+      localStorage.setItem('usersList',JSON.stringify(usersList))
+      console.log(usersList)
     })
     .catch((res) => {
         console.log("error:",res.message);
@@ -42,8 +32,8 @@ function App() {
     FetchSubscribedImages(user.token)
     .then(async (res:any) => {
           const response = await res.json()
-          await setImages(response.images)
-          await console.log(response)
+          setImages(response.images)
+          console.log(response)
         })
         .catch((res) => {
             console.log("error:",res.message);
@@ -57,17 +47,17 @@ function App() {
       <h2>Logged in to: {user.username}</h2>
       <Link to="alerin345" />
       <UserSearchBox />
-      { /* loop*/ }
       <div className="images">
-      { images.map( (image:any,id:number) =>
+      {
+        images.length != 0 ? images.map( (image:any,id:number) =>
         <ImageContainer
         key={id}
         {...image}
         />
       )
+      : ""
       }
       </div>
-      {/* end loop */}
     </div>
   );
 }

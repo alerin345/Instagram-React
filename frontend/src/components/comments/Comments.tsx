@@ -19,9 +19,9 @@ function AddComment(props: any) {
       props.setCommentsCount((n:number) => n+1)
 
       FetchAddComment(user.token,inputVal,props.imageId)
-      .then(async (res) => {
-        const response = await res.json()
-      })
+      // .then(async (res) => {
+      //   const response = await res.json()
+      // })
       .catch((res) => {
           console.log("error:",res.message);
       });
@@ -38,7 +38,7 @@ function AddComment(props: any) {
 }
 
 function Comment(props: any) {
-  const date:string = timeSince(props.date);
+  // const date:string = timeSince(props.date);
   return (
     <li className="comment">
       <b>{props.username}</b>

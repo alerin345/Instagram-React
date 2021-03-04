@@ -10,16 +10,13 @@ function AddPhoto(props: any) {
   const [image, setImage]:any = useState("")
   const {user, setUser} = useContext(UserContext);
 
-  // props.setUserProfile({...props.userProfile, props.userProfile.images[0]: 1})
-
-
   const submit = (e:any) => {
     e.preventDefault()
     let formData = new FormData();
     formData.append('picture', image, image.name)
     formData.append('description', description)
 
-    FetchAddPhoto(user.token, formData) //, picture, description)
+    FetchAddPhoto(user.token, formData)
     .then(async (res) => {
       const response = await res.json()
       props.setReload((r:any) => !r)

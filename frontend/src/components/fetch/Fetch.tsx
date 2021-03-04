@@ -5,6 +5,11 @@ import csrftoken from './../csrftoken/csrftoken'
 // const api:string = '10.220.0.74'
 const api:string = 'localhost'
 
+//----------------------------
+// The comments below are needed in case the cors is turned on
+//----------------------------
+
+
 const FetchRegister = (data:any) => fetch(`http://${api}:8000/api/register/`, {
   // credentials: 'include',
   method: 'POST',
@@ -186,7 +191,18 @@ const FetchDeletePhoto = (token:string, imageId:any) => fetch(`http://${api}:800
 
 })
 
-
+const FetchLogout = (token:string) => fetch("http://localhost:8000/api/logout/", {
+  // credentials: 'include',
+  method: 'POST',
+  // mode: 'same-origin',
+  headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    'Authorization': `Token ${token}`
+    // 'X-CSRFToken': csrftoken
+  },
+  body: ""
+})
 
 
 export {
@@ -201,5 +217,6 @@ export {
   FetchChangeUserProfile,
   FetchAddSubscribe,
   FetchAddPhoto,
-  FetchDeletePhoto
+  FetchDeletePhoto,
+  FetchLogout,
 };

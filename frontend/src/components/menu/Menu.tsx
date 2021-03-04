@@ -2,24 +2,14 @@ import React, { useContext } from 'react';
 import './Menu.css';
 import { Link } from "react-router-dom"
 import { UserContext } from './../userContext/UserContext'
+import { FetchLogout } from './../fetch/Fetch'
 
 function Menu(props: any) {
   const {user,setUser} = useContext(UserContext)
   const removeUserData = () => {
     if(user.token)
     {
-      fetch("http://localhost:8000/api/logout/", {
-        // credentials: 'include',
-        method: 'POST',
-        // mode: 'same-origin',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': `Token ${user.token}`
-          // 'X-CSRFToken': csrftoken
-        },
-        body: ""
-      })
+      FetchLogout(user.token)
     }
     localStorage.removeItem("user")
     setUser(null)

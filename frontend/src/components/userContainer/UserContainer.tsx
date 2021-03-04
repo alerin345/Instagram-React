@@ -10,10 +10,9 @@ function AccountsOptions(props:any) {
   const [showOptions, setShowOptions] = useState(false);
   const [showAddPhoto, setShowAddPhoto] = useState(false);
   const { ModalAddPhoto, ModalOptions } = Modals;
-  const {itsMyProfile}:any = props
+  const { itsMyProfile, username }:any = props
 
   const addSubscribe = () => {
-    const {username}:any = props
     FetchAddSubscribe(user.token, username)
     .then(async (res) => {
       const response = await res.json()
@@ -44,7 +43,7 @@ function AccountsOptions(props:any) {
 }
 
 
-function UserContainer(props: any) {
+function UserContainer( props: any) {
   const {user} = useContext(UserContext)
   return (
     <div className="userContainer">

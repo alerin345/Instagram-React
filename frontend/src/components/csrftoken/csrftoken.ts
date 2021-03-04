@@ -1,5 +1,3 @@
-import React from 'react';
-
 const csrfcookie = function() {
             let cookieValue = null,
                 name = "csrftoken";

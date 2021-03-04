@@ -2,8 +2,8 @@ import React, { useState, useContext, useEffect } from 'react';
 import './Login.css';
 import { Link, Redirect } from "react-router-dom"
 import { UserContext } from './../components/userContext/UserContext'
-import csrftoken from './../components/csrftoken/csrftoken'
 import { FetchLogin } from './../components/fetch/Fetch'
+
 
 function Login() {
   const [errors, setErrors]:any[] = useState([]);
@@ -67,7 +67,6 @@ function Login() {
       <br/>
 
       <Link to="/">Main</Link>
-
     </React.Fragment>
 
 

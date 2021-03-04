@@ -11,14 +11,11 @@ import timeSince from './../../functions/timeSince'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as faHeartOff } from '@fortawesome/free-solid-svg-icons'
 import { faHeart as faHeartOn } from '@fortawesome/free-regular-svg-icons'
+import type { AddLikeProps, ImageProps } from "Types/Types"
 
-type AddLikeProps = {
-  imageId: Number;
-  isLike: boolean;
-  setLikesCount: (v: number) => void;
-}
 
-const AddLike: React.FC<AddLikeProps> = (props: any) => {
+
+const AddLike: React.FC<AddLikeProps> = (props:any) => {
   const {user} = useContext(UserContext)
   const [isLike, setIsLike] = useState(props.isLike || false)
   const click = (e: any) => {
@@ -40,25 +37,6 @@ const AddLike: React.FC<AddLikeProps> = (props: any) => {
       <button className="btn-like" onClick={click}>{isLike ? <FontAwesomeIcon icon={faHeartOff} className="unlike" /> : <FontAwesomeIcon className="like" icon={faHeartOn} />}</button>
     </div>
   );
-}
-
-type ImageProps = {
-  itsMyProfile: boolean;
-  setShowDeletePhoto: (v: boolean) => void;
-  id: Number;
-  username: string;
-  description: string;
-  image: string;
-  likesCount: Number;
-  commentsCount: Number;
-  comments: {
-    user: string;
-    date: string;
-    value: string
-  }
-  isLike: boolean;
-  date: string;
-  closeModal?: any;
 }
 
 const ImageContainer: React.FC<ImageProps> = (props) => {
