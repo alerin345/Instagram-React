@@ -1,0 +1,20 @@
+.chatbox__main__list {
+  padding: 5px 0;
+  list-style: none;
+  /* height: calc(100vh - 125px); */
+  /* max-height: 1032px; */
+  max-height: calc(100vh - 207px);
+  overflow: auto;
+}
+.chatboxListItem {
+  padding: 5px 15px;
+  cursor: pointer;
+}
+.chatboxListItem > img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+.chatboxListItem:hover {
+  background-color: #efefef;
+}

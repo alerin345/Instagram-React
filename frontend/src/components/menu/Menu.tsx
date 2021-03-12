@@ -24,6 +24,9 @@ function Menu(props: any) {
         <li>
           <Link to={{pathname: "/"+user.username}}>User Profile</Link>
         </li>
+        <li>
+          <Link to="/direct/inbox">Chat</Link>
+        </li>
         { user.username ?
         (
           ""

@@ -7,6 +7,7 @@ import Register from './register/Register';
 import UserProfile from './userProfile/UserProfile';
 import ChangeProfileSettings from './changeProfileSettings/ChangeProfileSettings';
 import ChangePassword from './changePassword/ChangePassword';
+import Chatbox from './chatbox/Chatbox';
 import { Route, Switch, /*Link,*/ BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -53,6 +54,7 @@ return (
                 <ProtectedRoute exact path="/" component={App} />
                 <ProtectedRoute path="/accounts/profileSettings" component={ChangeProfileSettings} />
                 <ProtectedRoute path="/accounts/changePassword" component={ChangePassword} />
+                <ProtectedRoute path="/direct/inbox" component={Chatbox} />
                 <ProtectedRoute path="/:username" component={UserProfile} />
               </Switch>
             </DeleteImageContext.Provider>

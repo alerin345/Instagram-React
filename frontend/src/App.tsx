@@ -49,7 +49,7 @@ function App() {
       <UserSearchBox />
       <div className="images">
       {
-        images.length != 0 ? images.map( (image:any,id:number) =>
+        images && images.length != 0 ? images.map( (image:any,id:number) =>
         <ImageContainer
         key={id}
         {...image}
