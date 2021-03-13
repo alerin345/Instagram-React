@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import "./ChatboxMessages.css"
+import "./ChatboxMessages.scss"
 // import Menu from './../components/menu/Menu';
 // import { UserContext } from './../components/userContext/UserContext'
 

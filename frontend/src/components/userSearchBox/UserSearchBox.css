@@ -1,9 +1,0 @@
-.UserSearchBox {
-  height: 50px;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-}
-.UserSearchBox > * {
-  margin: 0 10px;
-}

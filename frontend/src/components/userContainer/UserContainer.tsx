@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import './UserContainer.css'
+import './UserContainer.scss'
 import Modals from './../modals/Modals'
 import { UserContext } from './../userContext/UserContext'
 import { FetchAddSubscribe } from './../fetch/Fetch'

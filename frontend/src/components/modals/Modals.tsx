@@ -6,7 +6,7 @@ import { UserContext } from './../userContext/UserContext';
 import { FetchDeletePhoto } from './../fetch/Fetch';
 import { DeleteImageContext } from './../deleteImageContext/DeleteImageContext'
 import ImageContainer from './../imageContainer/ImageContainer';
-import './Modals.css';
+import './Modals.scss';
 
 
 const ModalOptions = (props:any) => {

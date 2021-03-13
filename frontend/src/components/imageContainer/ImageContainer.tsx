@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import './ImageContainer.css';
+import './ImageContainer.scss';
 import Comments from './../comments/Comments';
 import { Link } from "react-router-dom"
 import csrftoken from './../csrftoken/csrftoken'

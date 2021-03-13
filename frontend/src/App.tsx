@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './App.css';
+import './App.scss';
 
 import Menu from './components/menu/Menu';
 import UserSearchBox from './components/userSearchBox/UserSearchBox';

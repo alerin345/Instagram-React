@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './Menu.css';
+import './Menu.scss';
 import { Link } from "react-router-dom"
 import { UserContext } from './../userContext/UserContext'
 import { FetchLogout } from './../fetch/Fetch'

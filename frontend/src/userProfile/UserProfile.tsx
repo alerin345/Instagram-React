@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import './UserProfile.css';
+import './UserProfile.scss';
 import Menu from './../components/menu/Menu';
 import UserContainer from './../components/userContainer/UserContainer';
 import ImageContainer from './../components/imageContainer/ImageContainer';

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React, { useContext, useState } from 'react';
-import './ChangeProfileSettings.css';
+import './ChangeProfileSettings.scss';
 import Menu from './../components/menu/Menu';
 import { FetchChangeUserProfile } from './../components/fetch/Fetch'
 import { UserContext } from './../components/userContext/UserContext'

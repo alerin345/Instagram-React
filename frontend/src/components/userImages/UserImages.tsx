@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './UserImages.css';
+import './UserImages.scss';
 import Modals from './../modals/Modals';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faHeart as faHeartOff } from '@fortawesome/free-solid-svg-icons'

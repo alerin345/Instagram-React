@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import './Register.css';
+import './Register.scss';
 import { Link , Redirect } from "react-router-dom"
 import csrftoken from './../components/csrftoken/csrftoken'
 import { UserContext } from './../components/userContext/UserContext'

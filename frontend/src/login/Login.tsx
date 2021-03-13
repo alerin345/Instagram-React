@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import './Login.css';
+import './Login.scss';
 import { Link, Redirect } from "react-router-dom"
 import { UserContext } from './../components/userContext/UserContext'
 import { FetchLogin } from './../components/fetch/Fetch'

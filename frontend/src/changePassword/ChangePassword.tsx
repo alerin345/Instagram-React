@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import './ChangePassword.css';
+import './ChangePassword.scss';
 import { FetchChangePassword } from './../components/fetch/Fetch'
 import { UserContext } from './../components/userContext/UserContext'
 import Menu from './../components/menu/Menu';

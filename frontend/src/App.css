@@ -1,8 +1,0 @@
-:root {
-  --app-background: rgba(250,250,250);
-}
-
-.App {
-  padding: 5px;
-  background: var(--app-background);
-}

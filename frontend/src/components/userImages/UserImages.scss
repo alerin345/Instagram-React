@@ -1,0 +1,55 @@
+.userImages {
+	margin: 0 auto;
+	padding: 0;
+	width: 100%;
+	height: auto;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	border: 1px solid black;
+	& > div {
+		position: relative;
+		width: 25vw;
+		height: 25vw;
+		flex: 0 0 25%;
+		margin: 14px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		cursor: pointer;
+		&:hover {
+			&:after {
+				content: '';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				background: rgba(0,0,0,0.2);
+			}
+			& > span {
+				display: block;
+			}
+		}
+	}
+	span {
+		z-index: 2;
+		color: #fff;
+		margin: 0 15px;
+		display: none;
+	}
+	svg {
+		margin: 0 5px;
+	}
+	img {
+		position: absolute;
+		left: 0px;
+		top: 0px;
+		width: 100%;
+		height: 100%;
+	}
+}
+.rotateComment {
+	transform: rotateY(180deg);
+}

@@ -9,12 +9,14 @@
 .chatboxListItem {
   padding: 5px 15px;
   cursor: pointer;
-}
-.chatboxListItem > img {
-  width: 56px;
-  height: 56px;
-  border-radius: 50%;
-}
-.chatboxListItem:hover {
-  background-color: #efefef;
+
+  & > img {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+
+  &:hover {
+    background-color: #efefef;
+  }
 }

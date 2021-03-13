@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useContext} from 'react';
-import './Comments.css'
+import './Comments.scss'
 import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 import { FetchAddComment } from './../fetch/Fetch'

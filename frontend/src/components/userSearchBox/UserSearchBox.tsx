@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import './UserSearchBox.css'
+import './UserSearchBox.scss'
 // @ts-ignore
 import { useHistory } from 'react-router-dom'
 import { UsersListContext } from './../usersListContext/UsersListContext'
