@@ -5,6 +5,7 @@
 
 ## General info
 Instagram copy in Django and React with TypeScript.
+In this project, I mainly focus on Instagram functionalities.
 
 ## Technologies
 Project is created with:
