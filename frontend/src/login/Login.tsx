@@ -30,22 +30,15 @@ function Login() {
       }
       else {
         const user = await { ...response.user, 'token': response.token }
-        await console.log('res: ',response,"user: ",user);
         await localStorage.setItem('user',JSON.stringify(user))
         await setUser(user)
 
       }
     })
     .catch((res) => {
-        // setErrors(res.message);
         console.log("error:",res.message);
     });
   }
-  // useEffect( () => {
-  //   localStorage.removeItem('user')
-  //   localStorage.removeItem('usersList')
-  //   setUser(null)
-  // },[])
 
   return (
     user ?

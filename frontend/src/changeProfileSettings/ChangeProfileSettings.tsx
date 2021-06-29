@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React, { useContext, useState } from 'react';
 import './ChangeProfileSettings.scss';
 import Menu from './../components/menu/Menu';
@@ -7,7 +6,7 @@ import { UserContext } from './../components/userContext/UserContext'
 
 function ChangeProfileSettings() {
   const [description, setDescription] = useState("")
-  const [image, setImage] = useState("")
+  const [image, setImage]:any = useState("")
   const {user, setUser} = useContext(UserContext);
 
   const submit = (e:any) => {
@@ -23,7 +22,7 @@ function ChangeProfileSettings() {
     }
     formData.append('description', description)
 
-    FetchChangeUserProfile(user.token, formData) //, picture, description)
+    FetchChangeUserProfile(user.token, formData)
     .then(async (res) => {
       const response = await res.json()
     })
@@ -38,7 +37,7 @@ function ChangeProfileSettings() {
       <form className="changeProfileSettings" onSubmit={submit} encType="multipart/form-data">
         <h1>Change profile settings:</h1>
         Picture (if don't wanna change profile picture, leave it blank)
-        <input type="file" name="image" accept="image/*" onChange={(e) => setImage(e.target.files[0])} />
+        <input type="file" name="image" accept="image/*" onChange={(e:any) => setImage(e.target.files[0])} />
         Description
         <textarea name="description" onChange={(e) => setDescription(e.target.value)}></textarea>
         <button type="submit" className="btn btn-primary">Change</button>

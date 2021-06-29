@@ -20,7 +20,6 @@ function YouMessages(props:any) {
 function Chatbox(props: any) {
   const {user, setUser} = useContext(UserContext);
   const [isOpenMessage, setIsOpenMessage] = useState(true);
-  // console.log(user)
 
   return (
     <React.Fragment>

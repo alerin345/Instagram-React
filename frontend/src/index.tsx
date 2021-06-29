@@ -8,7 +8,7 @@ import UserProfile from './userProfile/UserProfile';
 import ChangeProfileSettings from './changeProfileSettings/ChangeProfileSettings';
 import ChangePassword from './changePassword/ChangePassword';
 import Chatbox from './chatbox/Chatbox';
-import { Route, Switch, /*Link,*/ BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.css';
 import { UserContext } from "./components/userContext/UserContext"

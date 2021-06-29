@@ -130,7 +130,6 @@ const ModalImageContainer = (props:any) => {
       setReload={props.setReload}
       setShowDeletePhoto={props.setShowDeletePhoto}
       closeModal={handleClose}
-      // itsMyProfile={userProfile.itsMyProfile}
       />
     </div>
   );

@@ -19,7 +19,7 @@ function AddPhoto(props: any) {
     FetchAddPhoto(user.token, formData)
     .then(async (res) => {
       const response = await res.json()
-      props.setReload((r:any) => !r)
+      props.setReload((r:boolean) => !r)
     })
     .then(() => props.handleClose())
     .catch((res) => {

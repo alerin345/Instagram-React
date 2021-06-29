@@ -8,6 +8,7 @@ Instagram copy in Django and React with TypeScript.
 
 ## Technologies
 Project is created with:
+* Python 3.9.5
 * Django
 * React
 * TypeScript

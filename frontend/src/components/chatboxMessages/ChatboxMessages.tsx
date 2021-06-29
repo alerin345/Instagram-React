@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import "./ChatboxMessages.scss"
-// import Menu from './../components/menu/Menu';
-// import { UserContext } from './../components/userContext/UserContext'
 
 
 
@@ -36,20 +34,10 @@ function ChatboxMessages(props: any) {
     e.preventDefault();
     if(e.keyCode === 13)
     {
-      if(e.shiftKey) {
-        console.log('enter + shift');
-        console.log(e.shiftKey);
-      }
-      else {
-        console.log('enter')
         refSend.current.value = e.target.value.split("\n").join("")
         if (e.target.value != "")
           setMessages( (prev:any) => [...prev,e.target.value]);
-        console.log(e.target.value)
-      }
     }
-    console.log(refSend.current.value)
-
   }
 
   return (

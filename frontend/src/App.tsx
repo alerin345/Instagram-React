@@ -19,11 +19,9 @@ function App() {
     FetchUsers(user.token)
     .then(async (res) => {
       const response = await res.json()
-      console.log('retypes:',response)
       const { usersList } = await response
       await setUsersList(usersList)
       localStorage.setItem('usersList',JSON.stringify(usersList))
-      console.log(usersList)
     })
     .catch((res) => {
         console.log("error:",res.message);
@@ -33,7 +31,6 @@ function App() {
     .then(async (res:any) => {
           const response = await res.json()
           setImages(response.images)
-          console.log(response)
         })
         .catch((res) => {
             console.log("error:",res.message);

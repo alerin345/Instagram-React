@@ -46,7 +46,7 @@ const ImageContainer: React.FC<ImageProps> = (props) => {
   const [likesCount, setLikesCount] = useState(props.likesCount)
   const [commentsCount, setCommentsCount] = useState(props.commentsCount)
   const [isOpen, setIsOpen] = useState(false);
-  console.log('prop clo:',props.closeModal);
+
   return (
     <article className="imageContainer">
 
@@ -67,7 +67,6 @@ const ImageContainer: React.FC<ImageProps> = (props) => {
 
       }
       <img src={props.image} alt={props.description} />
-      {/*<p>{props.description}</p>*/}
       <AddLike imageId={props.id} isLike={props.isLike} setLikesCount={setLikesCount}/>
       <p className="post-stats">likes: {likesCount} comments: {commentsCount}</p>
       <Comments imageId={props.id} comments={props.comments} setCommentsCount={setCommentsCount} addedPhotoDate={date}/>

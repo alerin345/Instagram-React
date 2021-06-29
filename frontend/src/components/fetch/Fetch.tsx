@@ -136,7 +136,6 @@ const FetchAddPhoto = (token:string,formData:any) => fetch(`http://${api}:8000/a
     'X-CSRFToken': csrftoken,
     'Authorization': `Token ${token}`
   },
-  // body: JSON.stringify({'picture' : picture, 'description': description})
   body: formData
 })
 const FetchChangePassword = (token:string, oldPassword:string, newPassword:string) => fetch(`http://${api}:8000/api/accounts/changePassword/`, {
@@ -169,7 +168,6 @@ const FetchChangeUserProfile = (token:string, formData:any) => fetch(`http://${a
     'X-CSRFToken': csrftoken,
     'Authorization': `Token ${token}`
   },
-  // body: JSON.stringify({'picture' : picture, 'description': description})
   body: formData
 
 })
@@ -186,7 +184,6 @@ const FetchDeletePhoto = (token:string, imageId:any) => fetch(`http://${api}:800
     'X-CSRFToken': csrftoken,
     'Authorization': `Token ${token}`
   },
-  // body: JSON.stringify({'picture' : picture, 'description': description})
   body: JSON.stringify({'imageId' : imageId})
 
 })
@@ -201,7 +198,6 @@ const FetchLogout = (token:string) => fetch("http://localhost:8000/api/logout/",
     'Authorization': `Token ${token}`
     // 'X-CSRFToken': csrftoken
   },
-  body: ""
 })
 
 

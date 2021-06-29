@@ -9,7 +9,7 @@ type UserProfile = {
   isSubscribe?: boolean;
 }
 
-export type { UserProfile }
+
 
 type Comments = {
   username: string;
@@ -17,7 +17,6 @@ type Comments = {
   date: string;
 }
 
-export type { Comments }
 
 type Images = {
   id?: number;
@@ -28,20 +27,17 @@ type Images = {
   date?: string;
 }
 
-export type { Images }
 
 type NotFoundProps = {
   username: string
 }
 
-export type { NotFoundProps }
 
 type AddLikeProps = {
   imageId: Number;
   isLike: boolean;
   setLikesCount: (n: number) => void;
 }
-export type { AddLikeProps }
 
 type ImageProps = {
   itsMyProfile: boolean;
@@ -61,4 +57,4 @@ type ImageProps = {
   date: string;
   closeModal?: any;
 }
-export type { ImageProps }
+export type { ImageProps, UserProfile, Comments, Images, NotFoundProps, AddLikeProps }

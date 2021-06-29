@@ -1,7 +1,5 @@
 import React, { useContext } from 'react';
 import "./ChatboxList.scss"
-// import Menu from './../components/menu/Menu';
-// import { UserContext } from './../components/userContext/UserContext'
 
 function ChatboxListItem(props: any) {
   const { name } = props;

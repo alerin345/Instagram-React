@@ -16,7 +16,6 @@ function AccountsOptions(props:any) {
     FetchAddSubscribe(user.token, username)
     .then(async (res) => {
       const response = await res.json()
-      console.log(response)
       await props.setReload((r:any) => !r)
     })
     .catch((res) => {

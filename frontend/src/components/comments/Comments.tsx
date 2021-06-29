@@ -4,7 +4,6 @@ import { UserContext } from './../userContext/UserContext'
 import csrftoken from './../csrftoken/csrftoken'
 import { FetchAddComment } from './../fetch/Fetch'
 import timeSince from './../../functions/timeSince'
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 function AddComment(props: any) {
   const { user } = useContext(UserContext)
@@ -19,9 +18,6 @@ function AddComment(props: any) {
       props.setCommentsCount((n:number) => n+1)
 
       FetchAddComment(user.token,inputVal,props.imageId)
-      // .then(async (res) => {
-      //   const response = await res.json()
-      // })
       .catch((res) => {
           console.log("error:",res.message);
       });
@@ -38,12 +34,10 @@ function AddComment(props: any) {
 }
 
 function Comment(props: any) {
-  // const date:string = timeSince(props.date);
   return (
     <li className="comment">
       <b>{props.username}</b>
       <span>{props.value}</span>
-      {/*<span>{date}</span>*/}
     </li>
   );
 }

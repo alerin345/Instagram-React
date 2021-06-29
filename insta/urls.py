@@ -30,23 +30,6 @@ urlpatterns = [
     path('<str:username>/', TemplateView.as_view(template_name='index.html'), name='username'),
     path('direct/inbox/', TemplateView.as_view(template_name='index.html'), name='chatbox'),
     path('panel/admin/', admin.site.urls),
-
-    # path('login/', TemplateView.as_view(template_name='index.html')),
-    # path('<str:username>/', TemplateView.as_view(template_name='index.html')),
-    # path('api/', include('api')),
-    # path('api/', main),
-    # path('test/', TemplateView.as_view(template_name='index.html'), name="test"),
-    # path('', index),
-    # path('register/', registerPage, name="register"),
-    # path('login/', loginPage, name="login"),
-    # path('logout/', logoutUser, name="logout"),
-    # path('accounts/profileSettings', profileSettings, name="profile settings"),
-    # path('accounts/changePassword', changePassword, name="change password"),
-    # path('accounts/addImage', addImage, name="add image"),
-    # path('users/', usersIndex),
-    # path("<str:nickname>", usersIndex, name="index"),
-    # path("<str:nickname>", usersIndex, name="index"),
 ]
 
-# urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
